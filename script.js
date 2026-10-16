@@ -449,15 +449,16 @@ function aplicarDadosProfissional() {
 }
 
 function efeitosInterativos() {
-  // Cartão do profissional com inclinação 3D
-  const card = $('#proCard');
-  card.addEventListener('mousemove', (e) => {
-    const r = card.getBoundingClientRect();
-    const x = (e.clientX - r.left) / r.width - 0.5;
-    const y = (e.clientY - r.top) / r.height - 0.5;
-    card.style.transform = `perspective(800px) rotateY(${x * 10}deg) rotateX(${-y * 10}deg)`;
+  // Cartão do profissional e foto com inclinação 3D
+  document.querySelectorAll('#proCard, #fotoMoldura').forEach((card) => {
+    card.addEventListener('mousemove', (e) => {
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      card.style.transform = `perspective(800px) rotateY(${x * 10}deg) rotateX(${-y * 10}deg)`;
+    });
+    card.addEventListener('mouseleave', () => { card.style.transform = ''; });
   });
-  card.addEventListener('mouseleave', () => { card.style.transform = ''; });
 
   // Botão flutuante: aparece depois do topo e some no rodapé
   const floatBtn = $('#floatBtn');
@@ -470,20 +471,56 @@ function efeitosInterativos() {
   const io = new IntersectionObserver((entries) => entries.forEach((e) => {
     if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
   }), { threshold: 0.1 });
-  document.querySelectorAll('.step, .science, .footer-inner > *').forEach((el) => { el.classList.add('reveal'); io.observe(el); });
+  document.querySelectorAll('.step, .science, .footer-inner > *, [data-reveal]').forEach((el) => { el.classList.add('reveal'); io.observe(el); });
 
-  // Contadores do topo
-  const totalEx = Object.values(EXERCICIOS).reduce((s, l) => s + l.length, 0);
-  document.querySelector('.hero-stats .count[data-to="45"]').dataset.to = totalEx;
-  document.querySelector('.hero-stats .count[data-to="6"]').dataset.to = Object.keys(EQUACOES).length;
-  document.querySelectorAll('.hero-stats .count').forEach((el) => countUp(el, +el.dataset.to, { duration: 2000 }));
+  // Contadores: animam de 0 até o valor quando aparecem na tela
+  const statEx = $('#statEx'), statEq = $('#statEq');
+  if (statEx) statEx.dataset.to = Object.values(EXERCICIOS).reduce((s, l) => s + l.length, 0);
+  if (statEq) statEq.dataset.to = Object.keys(EQUACOES).length;
+  const ioCount = new IntersectionObserver((entries) => entries.forEach((e) => {
+    if (!e.isIntersecting) return;
+    countUp(e.target, +e.target.dataset.to, { duration: 2000, suffix: e.target.dataset.sufixo || '' });
+    ioCount.unobserve(e.target);
+  }), { threshold: 0.5 });
+  document.querySelectorAll('.count[data-to]').forEach((el) => ioCount.observe(el));
+
+  // Texto digitando (página Sobre)
+  document.querySelectorAll('[data-frases]').forEach((el) => {
+    const frases = el.dataset.frases.split('|');
+    let f = 0, c = 0, apagando = false;
+    const tick = () => {
+      const frase = frases[f];
+      c += apagando ? -1 : 1;
+      el.textContent = frase.slice(0, c);
+      let espera = apagando ? 35 : 70;
+      if (!apagando && c === frase.length) { apagando = true; espera = 1800; }
+      else if (apagando && c === 0) { apagando = false; f = (f + 1) % frases.length; espera = 400; }
+      setTimeout(tick, espera);
+    };
+    tick();
+  });
 }
 
 /* =========================================================
    INICIALIZAÇÃO
    ========================================================= */
+// Ao abrir os arquivos direto do computador, links de pasta ("calculadora/") precisam do index.html
+function ajustarLinksLocais() {
+  if (location.protocol !== 'file:') return;
+  document.querySelectorAll('a[href]').forEach((a) => {
+    const href = a.getAttribute('href');
+    if (/^(https?:|mailto:|#)/.test(href)) return;
+    const [caminho, ancora] = href.split('#');
+    if (caminho.endsWith('/')) a.setAttribute('href', caminho + 'index.html' + (ancora !== undefined ? '#' + ancora : ''));
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+  ajustarLinksLocais();
   aplicarDadosProfissional();
+  efeitosInterativos();
+  if (!$('#faList')) return; // páginas sem a calculadora
+
   renderFatores();
   renderSelectExercicios();
   initToggle('sexo', 'sexo');
@@ -507,6 +544,4 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   $('#peso').addEventListener('input', renderExercicios);
   $('#calcular').addEventListener('click', calcular);
-
-  efeitosInterativos();
 });
