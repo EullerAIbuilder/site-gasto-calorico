@@ -476,3 +476,9 @@ input:focus, select:focus { outline: none; border-color: var(--green-500); box-s
   .desafio { padding: 26px 22px; }
   .rede-card { flex-direction: column; }
 }
+
+/* Déficit máximo / meta limitada */
+.goal-side .def-max { border: 1.5px dashed var(--gold); background: #fffaf0; }
+.goal-card.limitado { border-color: var(--danger); }
+.goal-card.limitado .def-max { border-style: solid; border-color: var(--danger); background: #fbe6e5; }
+.goal-card.limitado .def-max strong { color: var(--danger); }

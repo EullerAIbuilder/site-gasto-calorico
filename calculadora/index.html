@@ -136,7 +136,7 @@
           <input type="number" id="semanas" min="1" max="104" placeholder="Ex.: 10">
         </div>
       </div>
-      <p class="hint small">Cálculo: 1 kg de gordura ≈ <strong>7.700 kcal</strong>. Déficit diário = (kg × 7.700) ÷ (semanas × 7).</p>
+      <p class="hint small">Cálculo: 1 kg de gordura ≈ <strong>7.700 kcal</strong>. Déficit diário = (kg × 7.700) ÷ (semanas × 7). Para proteger sua saúde, o déficit é limitado a <strong>1.000 kcal/dia ou 30% do seu gasto total</strong> (o que for menor).</p>
       <p class="error" id="erro"></p>
       <button type="button" class="btn btn-gold btn-big" id="calcular">Calcular meu gasto calórico</button>
     </section>
@@ -166,6 +166,7 @@
         <div class="goal-side">
           <div><span>Ajuste diário</span><strong id="rDef">0</strong></div>
           <div><span>Ritmo semanal</span><strong id="rRitmo">0</strong></div>
+          <div id="rDefMaxBox" class="def-max"><span>Déficit máximo recomendado</span><strong id="rDefMax">0</strong></div>
         </div>
         <ul class="alerts" id="alertas"></ul>
       </div>
@@ -217,6 +218,10 @@
           <p>O corpo compensa parte das calorias gastas no exercício reduzindo o gasto basal. Em 1.754 adultos (Careau et al., 2021), a compensação média foi de ~28% e aumentou com a adiposidade: 29,7% no 10º percentil de IMC e 45,7% no 90º. Quando o objetivo é emagrecer, aplicamos 29,7% para IMC &lt; 25, 45,7% para IMC ≥ 30 e um valor intermediário no sobrepeso.</p>
         </div>
         <div class="sci-item">
+          <h4>Déficit calórico máximo</h4>
+          <p>As diretrizes recomendam déficit de <strong>500 a 1.000 kcal/dia</strong> para perder de 0,5 a 1 kg por semana (NHLBI, 1998; ACSM, 2009; ABESO, 2016). A diretriz AHA/ACC/TOS (Jensen et al., 2013) aceita déficit de 500 ou 750 kcal/dia ou de <strong>30%</strong> do gasto. A calculadora limita o déficit ao menor valor entre 1.000 kcal/dia e 30% do GET. Metas acima disso são consideradas agressivas demais para uma perda de peso saudável.</p>
+        </div>
+        <div class="sci-item">
           <h4>Efeito térmico dos alimentos</h4>
           <p>Cerca de 10% da energia ingerida é gasta na digestão, absorção e armazenamento dos nutrientes. Como no equilíbrio ingestão = gasto, o GET é calculado como (GER × FA + exercícios) ÷ 0,9, de modo que o ETA corresponda a 10% do total.</p>
         </div>
@@ -236,6 +241,10 @@
           <li>Herrmann SD, et al. 2024 Adult Compendium of Physical Activities. <em>J Sport Health Sci</em>. 2024;13(1):6-12.</li>
           <li>FAO/WHO/UNU. Human energy requirements. Food and Nutrition Technical Report Series 1. Roma, 2004.</li>
           <li>Careau V, Halsey LG, Pontzer H, et al. Energy compensation and adiposity in humans. <em>Curr Biol</em>. 2021;31(20):4659-66.</li>
+          <li>National Heart, Lung, and Blood Institute (NHLBI). Clinical guidelines on the identification, evaluation, and treatment of overweight and obesity in adults: the evidence report. <em>Obes Res</em>. 1998;6(Suppl 2):51S-209S.</li>
+          <li>Donnelly JE, et al. American College of Sports Medicine Position Stand. Appropriate physical activity intervention strategies for weight loss and prevention of weight regain for adults. <em>Med Sci Sports Exerc</em>. 2009;41(2):459-71.</li>
+          <li>Jensen MD, Ryan DH, et al. 2013 AHA/ACC/TOS guideline for the management of overweight and obesity in adults. <em>Circulation</em>. 2014;129(25 Suppl 2):S102-38.</li>
+          <li>Associação Brasileira para o Estudo da Obesidade e da Síndrome Metabólica (ABESO). Diretrizes brasileiras de obesidade 2016. 4. ed. São Paulo: ABESO; 2016.</li>
           <li>Hall KD. What is the required energy deficit per unit weight loss? <em>Int J Obes</em>. 2008;32(3):573-6.</li>
         </ol>
       </details>

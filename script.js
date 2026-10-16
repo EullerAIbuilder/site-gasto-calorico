@@ -33,6 +33,10 @@ const FATORES = [
    ========================================================= */
 const COMPENSACAO = { eutrofia: 0.297, obesidade: 0.457 };
 
+// Déficit calórico máximo recomendado por dia
+const DEFICIT_MAX_KCAL = 1000;  // NHLBI (1998); ABESO (2016); ACSM (Donnelly et al., 2009)
+const DEFICIT_MAX_PCT = 0.30;   // 30% do GET (Jensen et al., 2013 – AHA/ACC/TOS)
+
 function fracaoCompensacao(imc) {
   if (imc < 25) return COMPENSACAO.eutrofia;
   if (imc >= 30) return COMPENSACAO.obesidade;
@@ -343,11 +347,17 @@ function calcular() {
   const eta = get - base;
 
   // 5) Meta de ingestão
-  const ajuste = state.objetivo === 'manter' ? 0 : (kg * 7700) / (semanas * 7);
+  const ajusteSolicitado = state.objetivo === 'manter' ? 0 : (kg * 7700) / (semanas * 7);
+  // Déficit máximo: o menor entre 1.000 kcal/dia (NHLBI 1998; ABESO 2016) e 30% do GET (Jensen et al., 2013)
+  const deficitMax = Math.min(DEFICIT_MAX_KCAL, DEFICIT_MAX_PCT * get);
+  const limitado = state.objetivo === 'perder' && ajusteSolicitado > deficitMax;
+  const ajuste = limitado ? deficitMax : ajusteSolicitado;
   const meta = state.objetivo === 'perder' ? get - ajuste : get + ajuste;
-  const ritmo = state.objetivo === 'manter' ? 0 : kg / semanas;
+  const ritmo = state.objetivo === 'manter' ? 0 : (ajuste * 7) / 7700;
+  const semanasNecessarias = limitado ? (kg * 7700) / (ajuste * 7) : semanas;
 
-  mostrarResultados({ d, escolha, eq, ger, atividade, exercicio, exercicioBruto, compensacao, imc, eta, get, ajuste, meta, ritmo, kg, semanas });
+  mostrarResultados({ d, escolha, eq, ger, atividade, exercicio, exercicioBruto, compensacao, imc, eta, get,
+    ajuste, ajusteSolicitado, deficitMax, limitado, semanasNecessarias, meta, ritmo, kg, semanas });
 }
 
 function mostrarResultados(r) {
@@ -388,10 +398,18 @@ function mostrarResultados(r) {
   $('#rRitmo').textContent = o === 'manter' ? 'Manutenção' : `${sinal}${fmt(r.ritmo, 2)} kg/semana`;
   $('#rMetaTxt').textContent = o === 'manter'
     ? 'Ingestão estimada para manter o peso atual.'
-    : `Para ${o === 'perder' ? 'perder' : 'ganhar'} ${fmt(r.kg, 1)} kg em ${fmt(r.semanas)} semanas: ${fmt(r.kg, 1)} × 7.700 kcal = ${fmt(r.kg * 7700)} kcal ÷ ${fmt(r.semanas * 7)} dias.`;
+    : r.limitado
+      ? `Ingestão ajustada ao déficit máximo recomendado. Neste ritmo, perder ${fmt(r.kg, 1)} kg leva cerca de ${fmt(Math.ceil(r.semanasNecessarias))} semanas.`
+      : `Para ${o === 'perder' ? 'perder' : 'ganhar'} ${fmt(r.kg, 1)} kg em ${fmt(r.semanas)} semanas: ${fmt(r.kg, 1)} × 7.700 kcal = ${fmt(r.kg * 7700)} kcal ÷ ${fmt(r.semanas * 7)} dias.`;
+  $('#rDefMaxBox').classList.toggle('hidden', o !== 'perder');
+  $('#rDefMax').textContent = `${fmt(r.deficitMax)} kcal/dia`;
+  $('#goalCard').classList.toggle('limitado', r.limitado);
 
   // Alertas de segurança
   const alertas = [];
+  if (r.limitado) {
+    alertas.push(['danger', `Meta muito agressiva: perder ${fmt(r.kg, 1)} kg em ${fmt(r.semanas)} semanas exigiria um déficit de ${fmt(r.ajusteSolicitado)} kcal/dia, acima do máximo recomendado para uma perda de peso saudável (${fmt(r.deficitMax)} kcal/dia, o menor valor entre 1.000 kcal e 30% do seu gasto total). Por isso, o déficit foi limitado a ${fmt(r.deficitMax)} kcal/dia. Para essa meta, o prazo recomendado é de pelo menos ${fmt(Math.ceil(r.semanasNecessarias))} semanas.`]);
+  }
   const pctSemana = (r.ritmo / r.d.peso) * 100;
   const minimo = r.d.sexo === 'F' ? 1200 : 1500;
   if (o === 'perder') {
