@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Euller Augusto | Nutricionista</title>
-  <meta name="description" content="Conheça Euller Augusto, nutricionista com foco em obesidade, emagrecimento e nutrição esportiva baseados em evidências.">
+  <title>Desafio 10 em 10 | Euller Augusto Nutricionista</title>
+  <meta name="description" content="Desafio 10 em 10: perca até 10% do seu peso em 10 semanas e chegue em 2027 mais leve, com acompanhamento on-line do nutricionista Euller Augusto.">
   <link rel="icon" href="favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -28,7 +28,8 @@
         </span>
       </a>
       <nav class="nav">
-        <a href="./" class="active">O Euller</a>
+        <a href="./" class="nav-desafio active">Desafio 10 em 10</a>
+        <a href="sobre/">O Euller</a>
         <a href="calculadora/">Calculadora</a>
         <a href="calculadora/#ciencia">Ciência</a>
         <a href="#contato" class="nav-cta">Consultoria</a>
@@ -36,166 +37,193 @@
     </div>
   </header>
 
-  <!-- ===== APRESENTAÇÃO ===== -->
-  <section class="hero hero-sobre">
-    <div class="container sobre-grid">
-      <div class="sobre-texto">
-        <span class="pill">Nutricionista<span class="crn-wrap"> – <span data-pro="crn"></span></span></span>
-        <h1>Prazer, eu sou o <span class="gold">Euller Augusto</span></h1>
-        <p class="digitando-linha">Nutrição para <span class="digitando" data-frases="obesidade e emagrecimento|nutrição esportiva|educação nutricional|resultados que se sustentam"></span></p>
-        <p>Acredito que emagrecer e cuidar da saúde não precisa de dieta da moda. Precisa de <strong>ciência</strong>, de um plano que <strong>caiba na sua rotina</strong> e de alguém que acompanhe você de perto.</p>
-        <div class="hero-botoes">
-          <a href="calculadora/#calculadora" class="btn btn-gold">Calcular meu gasto calórico</a>
-          <a href="#contato" class="btn btn-outline">Consultoria on-line</a>
+  <!-- ===== HERO DO DESAFIO ===== -->
+  <section class="hero hero-desafio">
+    <div class="container desafio-hero">
+      <div class="desafio-painel">
+      <span class="pill" data-cd-pill>Turma de fim de ano · começa em 23/10</span>
+      <h1 class="titulo-box">
+        <span class="t-desafio">Desafio</span>
+        <span class="t-numeros">10<em>em</em>10</span>
+        <span class="t-legenda">10% do peso · 10 semanas</span>
+      </h1>
+      <p class="desafio-sub">Perca até <strong>10% do seu peso em 10 semanas</strong> e chegue em 2027 mais leve, com plano individualizado e acompanhamento de um nutricionista.</p>
+
+      <div class="countdown" data-countdown>
+        <p class="cd-label" data-countdown-label>O desafio começa em</p>
+        <div class="cd-boxes">
+          <div class="cd-box"><strong class="cd-dias">--</strong><span>dias</span></div>
+          <div class="cd-box"><strong class="cd-horas">--</strong><span>horas</span></div>
+          <div class="cd-box"><strong class="cd-min">--</strong><span>minutos</span></div>
+          <div class="cd-box"><strong class="cd-seg">--</strong><span>segundos</span></div>
         </div>
+        <p class="cd-nota" data-countdown-nota>Início: 23 de outubro, 00h (horário de Brasília)</p>
       </div>
-      <div class="sobre-foto" data-reveal>
-        <div class="foto-moldura" id="fotoMoldura">
-          <img src="img/euller-sobre.jpg" alt="Euller Augusto, nutricionista, sentado de braços cruzados" width="960" height="1200">
-        </div>
-        <div class="foto-selo selo-a"><strong>Nutrição</strong><span>São Camilo · 2025</span></div>
-        <div class="foto-selo selo-b"><strong>Pós-graduação</strong><span>USP · Esportiva e Obesidade</span></div>
+
+      <div class="hero-botoes centro">
+        <a data-whatsapp="Olá, Euller! Quero garantir minha vaga no Desafio 10 em 10." href="#" target="_blank" rel="noopener" class="btn btn-gold btn-pulse">Quero garantir minha vaga</a>
+        <a href="#meta" class="btn btn-outline">Quanto é 10% do meu peso?</a>
+      </div>
+
+      </div>
+
+      <div class="desafio-fatos">
+        <div><strong class="count" data-to="10">0</strong><span>semanas</span></div>
+        <div><strong class="count" data-to="10" data-sufixo="%">0</strong><span>do peso como meta</span></div>
+        <div><strong class="count" data-to="100" data-sufixo="%">0</strong><span>on-line</span></div>
       </div>
     </div>
   </section>
 
   <main class="sobre-main">
 
-    <!-- Números -->
-    <div class="container">
-      <div class="numeros">
-        <div data-reveal><strong class="count" data-to="4">0</strong><span>estágios em áreas diferentes</span></div>
-        <div data-reveal><strong class="count" data-to="1" data-sufixo=" ano">0</strong><span>de pesquisa científica</span></div>
-        <div data-reveal><strong class="count" data-to="45" data-sufixo="h">0</strong><span>de cursos em emagrecimento</span></div>
-        <div data-reveal><strong class="count" data-to="10" data-sufixo="%">0</strong><span>em 10 semanas: meu desafio</span></div>
-      </div>
-    </div>
-
-    <!-- Como eu trabalho -->
-    <section class="container bloco">
-      <div class="bloco-head" data-reveal>
-        <span class="rotulo">Como eu trabalho</span>
-        <h2>Ciência no plano, cuidado no acompanhamento</h2>
-      </div>
-      <div class="pilares">
-        <div class="pilar" data-reveal>
-          <span class="pilar-icone">🔬</span>
-          <h3>Baseado em evidências</h3>
-          <p>Cada conduta parte do que a ciência mostra que funciona, inclusive as contas desta calculadora.</p>
+    <!-- ===== QUANTO É 10%? ===== -->
+    <section class="container" id="meta">
+      <div class="card meta-card" data-reveal>
+        <div class="meta-entrada">
+          <span class="rotulo">Faça a conta</span>
+          <h2>Quanto é 10% do seu peso?</h2>
+          <p>Digite seu peso atual e veja onde você pode chegar até o fim do ano.</p>
+          <div class="field">
+            <label for="metaPeso">Seu peso atual (kg)</label>
+            <input type="number" id="metaPeso" min="40" max="300" step="0.1" placeholder="Ex.: 85">
+          </div>
         </div>
-        <div class="pilar" data-reveal>
-          <span class="pilar-icone">🍽️</span>
-          <h3>Plano que cabe na rotina</h3>
-          <p>Nada de cardápio impossível. O plano é montado com os seus horários, preferências e treinos.</p>
-        </div>
-        <div class="pilar" data-reveal>
-          <span class="pilar-icone">📈</span>
-          <h3>Acompanhamento próximo</h3>
-          <p>Avaliação, ajustes e reavaliações para manter o resultado, não só para alcançá-lo.</p>
-        </div>
-        <div class="pilar" data-reveal>
-          <span class="pilar-icone">💻</span>
-          <h3>Consultoria on-line</h3>
-          <p>Atendimento individualizado de onde você estiver, com o mesmo cuidado do presencial.</p>
+        <div class="meta-saida">
+          <div class="meta-item"><span>Meta do desafio</span><strong><span id="metaKg">0</span> kg</strong></div>
+          <div class="meta-item"><span>Por semana, em média</span><strong><span id="metaSemana">0</span> kg</strong></div>
+          <div class="meta-item destaque"><span>Seu peso em 31/12</span><strong><span id="metaFinal">0</span> kg</strong></div>
+          <a data-whatsapp="Olá, Euller! Fiz a conta no site e quero participar do Desafio 10 em 10." href="#" target="_blank" rel="noopener" class="btn btn-gold">Quero chegar lá</a>
         </div>
       </div>
     </section>
 
-    <!-- Desafio -->
-    <section class="container">
-      <div class="desafio" data-reveal>
-        <div>
-          <span class="rotulo">Desafio</span>
-          <h2>10 em 10</h2>
-          <p>Emagreça <strong>10% do seu peso em 10 semanas</strong>, com estratégia e acompanhamento.</p>
+    <!-- ===== POR QUE 10%? ===== -->
+    <section class="container bloco">
+      <div class="bloco-head" data-reveal>
+        <span class="rotulo">Por que 10%?</span>
+        <h2>Uma meta que a ciência leva a sério</h2>
+      </div>
+      <div class="pilares tres">
+        <div class="pilar" data-reveal>
+          <span class="pilar-icone">❤️</span>
+          <h3>Saúde de verdade</h3>
+          <p>Perder de 5% a 10% do peso já melhora pressão arterial, glicemia e colesterol, segundo a diretriz AHA/ACC/TOS (Jensen et al., 2013).</p>
         </div>
-        <a id="lnkDesafio" href="https://www.instagram.com/oeulleraugusto/" target="_blank" rel="noopener" class="btn btn-gold">Quero participar</a>
+        <div class="pilar" data-reveal>
+          <span class="pilar-icone">⚖️</span>
+          <h3>Ritmo seguro</h3>
+          <p>10% em 10 semanas é cerca de 1% do peso por semana, dentro do ritmo recomendado para perder gordura preservando massa magra.</p>
+        </div>
+        <div class="pilar" data-reveal>
+          <span class="pilar-icone">🎯</span>
+          <h3>Prazo que motiva</h3>
+          <p>Uma data clara (31 de dezembro) transforma intenção em ação. Você começa o ano novo com o resultado, não com a promessa.</p>
+        </div>
       </div>
     </section>
 
-    <!-- Trajetória -->
+    <!-- ===== COMO FUNCIONA ===== -->
     <section class="container bloco">
       <div class="bloco-head" data-reveal>
-        <span class="rotulo">Trajetória</span>
-        <h2>Da sala de aula ao atendimento</h2>
+        <span class="rotulo">Como funciona</span>
+        <h2>Do primeiro contato ao resultado</h2>
       </div>
-      <ol class="timeline">
-        <li data-reveal>
-          <span class="tl-tag">Formação</span>
-          <h3>Pós-graduação em Nutrição Esportiva e Obesidade</h3>
-          <p class="tl-local">Universidade de São Paulo (USP) · em andamento</p>
-        </li>
-        <li data-reveal>
-          <span class="tl-tag">Formação</span>
-          <h3>Graduação em Nutrição</h3>
-          <p class="tl-local">Centro Universitário São Camilo · concluída em 2025</p>
-        </li>
-        <li data-reveal>
-          <span class="tl-tag">Pesquisa</span>
-          <h3>Iniciação científica: sarcopenia, sono e vitamina D</h3>
-          <p class="tl-local">Laboratório de Pesquisa do Exercício e Qualidade de Vida · São Camilo</p>
-          <p>Um ano de atendimento voluntário a idosos em situação de vulnerabilidade, com avaliação antropométrica e funcional. Foi aí que descobri minha vocação: cuidar de pessoas.</p>
-        </li>
-        <li data-reveal>
-          <span class="tl-tag">Estágio</span>
-          <h3>Nutrição esportiva</h3>
-          <p class="tl-local">Clínica-escola PROMOVE</p>
-          <p>Avaliação com dobras cutâneas, prescrição dietética e cálculo do gasto calórico do exercício por METs, a mesma base desta calculadora.</p>
-        </li>
-        <li data-reveal>
-          <span class="tl-tag">Estágio</span>
-          <h3>Nutrição clínica</h3>
-          <p class="tl-local">Hospital São Camilo</p>
-          <p>Avaliação do estado nutricional, prescrição de suplementos e visitas multiprofissionais.</p>
-        </li>
-        <li data-reveal>
-          <span class="tl-tag">Estágio</span>
-          <h3>Saúde coletiva e alimentação coletiva</h3>
-          <p class="tl-local">Clínica-escola PROMOVE · Hotel Morumbi</p>
-          <p>Oficinas de educação nutricional, prescrição dietética e controle de qualidade na produção de refeições.</p>
-        </li>
-        <li data-reveal>
-          <span class="tl-tag">Cursos</span>
-          <h3>45 h em obesidade e emagrecimento</h3>
-          <p class="tl-local">Prof. Dr. Marcus Quaresma e Dr. Murilo Dattilo</p>
-          <p>Emagrecimento baseado em evidências, sob a ótica do metabolismo e do comportamento.</p>
-        </li>
+      <ol class="passos">
+        <li data-reveal><span class="passo-num">1</span><h3>Chame no WhatsApp</h3><p>Garanta sua vaga e tire suas dúvidas diretamente comigo.</p></li>
+        <li data-reveal><span class="passo-num">2</span><h3>Avaliação completa</h3><p>Entendo sua rotina, histórico, preferências e objetivos.</p></li>
+        <li data-reveal><span class="passo-num">3</span><h3>Plano individualizado</h3><p>Estratégia alimentar baseada em evidências, feita para caber no seu dia a dia.</p></li>
+        <li data-reveal><span class="passo-num">4</span><h3>10 semanas de acompanhamento</h3><p>Ajustes conforme sua evolução, até 31 de dezembro.</p></li>
       </ol>
     </section>
 
-    <!-- Conteúdo -->
-    <section class="container bloco">
-      <div class="bloco-head" data-reveal>
-        <span class="rotulo">Conteúdo gratuito</span>
-        <h2>Aprenda comigo nas redes</h2>
-      </div>
-      <div class="redes-grid">
-        <a class="rede-card rede-yt" href="https://www.youtube.com/@oeulleraugusto" target="_blank" rel="noopener" data-reveal>
-          <span class="rede-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
-          <div>
-            <span class="rotulo">YouTube</span>
-            <h3>Canal @oeulleraugusto</h3>
-            <p>Vídeos explicando nutrição e emagrecimento com base na ciência, sem mitos e sem complicação.</p>
-            <span class="rede-link">Assistir no YouTube →</span>
-          </div>
-        </a>
-        <a class="rede-card rede-ig" href="https://www.instagram.com/oeulleraugusto/" target="_blank" rel="noopener" data-reveal>
-          <span class="rede-play"><svg viewBox="0 0 24 24"><path d="M12 7a5 5 0 100 10 5 5 0 000-10zm0 8.2a3.2 3.2 0 110-6.4 3.2 3.2 0 010 6.4zM17.3 5.4a1.2 1.2 0 100 2.4 1.2 1.2 0 000-2.4zM7.5 2h9A5.5 5.5 0 0122 7.5v9a5.5 5.5 0 01-5.5 5.5h-9A5.5 5.5 0 012 16.5v-9A5.5 5.5 0 017.5 2zm0 1.8a3.7 3.7 0 00-3.7 3.7v9a3.7 3.7 0 003.7 3.7h9a3.7 3.7 0 003.7-3.7v-9a3.7 3.7 0 00-3.7-3.7h-9z"/></svg></span>
-          <div>
-            <span class="rotulo">Instagram</span>
-            <h3>@oeulleraugusto</h3>
-            <p>Dicas rápidas, bastidores dos atendimentos, o desafio 10 em 10 e informações sobre a consultoria on-line.</p>
-            <span class="rede-link">Seguir no Instagram →</span>
-          </div>
-        </a>
+    <!-- ===== LINHA DO DESAFIO ===== -->
+    <section class="container">
+      <div class="card linha-card" data-reveal>
+        <div class="linha-topo">
+          <div><span class="rotulo">Início</span><strong>23 de outubro</strong></div>
+          <div class="linha-centro"><span class="rotulo">Duração</span><strong>70 dias</strong></div>
+          <div class="linha-fim"><span class="rotulo">Chegada</span><strong>31 de dezembro</strong></div>
+        </div>
+        <div class="linha-barra"><div id="linhaProgresso"></div></div>
+        <p class="linha-status" id="linhaStatus">O desafio ainda não começou: ainda dá tempo de entrar.</p>
       </div>
     </section>
 
-    <!-- Chamada para a calculadora -->
+    <!-- ===== PARA QUEM É ===== -->
+    <section class="container bloco">
+      <div class="para-quem" data-reveal>
+        <div>
+          <span class="rotulo">Para quem é</span>
+          <h2>O desafio é para você se...</h2>
+        </div>
+        <ul class="checklist">
+          <li>Quer emagrecer antes do fim do ano, sem dieta da moda</li>
+          <li>Já tentou dietas restritivas e não conseguiu manter</li>
+          <li>Quer um plano que respeite sua rotina, seus treinos e suas preferências</li>
+          <li>Prefere ser acompanhado on-line, de onde estiver</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===== QUEM CONDUZ ===== -->
     <section class="container">
-      <div class="promo-inline" data-reveal>
-        <p>Quer saber quanto o seu corpo gasta por dia? Use a <strong>calculadora gratuita</strong>, que escolhe a equação mais precisa para o seu perfil.</p>
-        <a href="calculadora/#calculadora" class="btn btn-gold">Abrir a calculadora</a>
+      <div class="quem-conduz" data-reveal>
+        <img src="img/euller-sobre.jpg" alt="Euller Augusto, nutricionista" width="960" height="1200" loading="lazy">
+        <div>
+          <span class="rotulo">Quem conduz o desafio</span>
+          <h2>Euller Augusto</h2>
+          <p class="quem-crn">Nutricionista<span class="crn-wrap"> – <span data-pro="crn"></span></span></p>
+          <p>Nutricionista formado pela São Camilo e pós-graduando em Nutrição Esportiva e Obesidade pela USP, com cursos em emagrecimento baseado em evidências. Meu trabalho é unir ciência e cuidado para que o resultado venha e permaneça.</p>
+          <a href="sobre/" class="btn btn-outline-escuro">Conheça minha história</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PERGUNTAS FREQUENTES ===== -->
+    <section class="container bloco">
+      <div class="bloco-head" data-reveal>
+        <span class="rotulo">Dúvidas</span>
+        <h2>Perguntas frequentes</h2>
+      </div>
+      <div class="faq" data-reveal>
+        <details>
+          <summary>Quando o desafio começa e termina?</summary>
+          <p>Começa em 23 de outubro e vai até 31 de dezembro: 10 semanas (70 dias) para você terminar o ano com o resultado.</p>
+        </details>
+        <details>
+          <summary>É on-line?</summary>
+          <p>Sim. O acompanhamento é feito on-line, de onde você estiver.</p>
+        </details>
+        <details>
+          <summary>Perder 10% em 10 semanas é seguro?</summary>
+          <p>É cerca de 1% do peso por semana, o limite superior do ritmo recomendado. Por isso o desafio é individualizado: a meta e a estratégia são ajustadas ao seu caso, com segurança em primeiro lugar.</p>
+        </details>
+        <details>
+          <summary>Vou precisar cortar tudo o que eu gosto?</summary>
+          <p>Não. O plano é montado com base na sua rotina e preferências. Dieta que você não consegue seguir não funciona.</p>
+        </details>
+        <details>
+          <summary>Quanto custa e como garanto minha vaga?</summary>
+          <p>Chame no WhatsApp para saber valores e condições e garantir sua vaga antes do início.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- ===== CHAMADA FINAL ===== -->
+    <section class="container">
+      <div class="cta-final" data-reveal>
+        <h2>Daqui a 10 semanas, você vai agradecer por ter começado hoje.</h2>
+        <div class="countdown compacto" data-countdown>
+          <p class="cd-label" data-countdown-label>O desafio começa em</p>
+          <div class="cd-boxes">
+            <div class="cd-box"><strong class="cd-dias">--</strong><span>dias</span></div>
+            <div class="cd-box"><strong class="cd-horas">--</strong><span>horas</span></div>
+            <div class="cd-box"><strong class="cd-min">--</strong><span>min</span></div>
+            <div class="cd-box"><strong class="cd-seg">--</strong><span>seg</span></div>
+          </div>
+        </div>
+        <a data-whatsapp="Olá, Euller! Quero garantir minha vaga no Desafio 10 em 10." href="#" target="_blank" rel="noopener" class="btn btn-gold btn-big-inline btn-pulse">Quero garantir minha vaga</a>
       </div>
     </section>
   </main>
@@ -240,7 +268,7 @@
     </div>
   </footer>
 
-  <a id="floatBtn" class="float-btn" href="#contato" aria-label="Fale com o nutricionista">
+  <a id="floatBtn" class="float-btn" data-whatsapp="Olá, Euller! Quero saber mais sobre o Desafio 10 em 10." target="_blank" rel="noopener" href="#contato" aria-label="Fale com o nutricionista">
     <img class="float-icon" src="img/euller-principal.jpg" alt=""><span class="float-text">Fale com o Euller</span>
   </a>
 

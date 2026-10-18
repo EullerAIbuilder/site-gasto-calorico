@@ -522,6 +522,89 @@ function efeitosInterativos() {
 /* =========================================================
    INICIALIZAÇÃO
    ========================================================= */
+/* =========================================================
+   DESAFIO 10 EM 10 — datas no horário de Brasília (UTC−3)
+   ========================================================= */
+const DESAFIO = {
+  inicio: new Date('2026-10-23T00:00:00-03:00'),
+  fim: new Date('2027-01-01T00:00:00-03:00') // até 31/12 às 23h59
+};
+
+const dois = (n) => String(n).padStart(2, '0');
+
+function atualizarContagem() {
+  const agora = Date.now();
+  const antes = agora < DESAFIO.inicio;
+  const durante = !antes && agora < DESAFIO.fim;
+  const alvo = antes ? DESAFIO.inicio : DESAFIO.fim;
+  const resta = Math.max(0, alvo - agora);
+  const dias = Math.floor(resta / 864e5);
+  const horas = Math.floor(resta / 36e5) % 24;
+  const min = Math.floor(resta / 6e4) % 60;
+  const seg = Math.floor(resta / 1e3) % 60;
+
+  document.querySelectorAll('[data-countdown]').forEach((el) => {
+    el.querySelector('.cd-dias').textContent = dois(dias);
+    el.querySelector('.cd-horas').textContent = dois(horas);
+    el.querySelector('.cd-min').textContent = dois(min);
+    el.querySelector('.cd-seg').textContent = dois(seg);
+    el.classList.toggle('encerrado', !antes && !durante);
+  });
+  const label = antes ? 'O desafio começa em' : durante ? 'O desafio está acontecendo! Termina em' : 'Esta turma foi encerrada';
+  document.querySelectorAll('[data-countdown-label]').forEach((el) => { el.textContent = label; });
+  document.querySelectorAll('[data-countdown-nota]').forEach((el) => {
+    el.textContent = antes ? 'Início: 23 de outubro, 00h (horário de Brasília)'
+      : durante ? 'Fim: 31 de dezembro (horário de Brasília)' : 'Fale comigo para entrar na próxima turma';
+  });
+  document.querySelectorAll('[data-cd-pill]').forEach((el) => {
+    el.textContent = antes ? 'Turma de fim de ano · começa em 23/10' : durante ? 'Turma de fim de ano · em andamento' : 'Turma encerrada · próxima em breve';
+  });
+  document.querySelectorAll('[data-cd-frase]').forEach((el) => { el.textContent = antes ? 'começa em' : durante ? 'termina em' : 'encerrado'; });
+  document.querySelectorAll('[data-countdown-curto]').forEach((el) => {
+    el.textContent = (antes || durante) ? `${dias}d ${dois(horas)}h ${dois(min)}min ${dois(seg)}s` : '';
+  });
+
+  // Linha do desafio (página inicial)
+  const barra = $('#linhaProgresso');
+  if (barra) {
+    const total = DESAFIO.fim - DESAFIO.inicio;
+    const pct = Math.min(100, Math.max(0, (agora - DESAFIO.inicio) / total * 100));
+    barra.style.width = pct + '%';
+    $('#linhaStatus').textContent = antes
+      ? 'O desafio ainda não começou: ainda dá tempo de entrar.'
+      : durante ? `Semana ${Math.min(10, Math.floor((agora - DESAFIO.inicio) / 6048e5) + 1)} de 10 · ${fmt(pct)}% do caminho percorrido.`
+        : 'Turma encerrada. Fale comigo para garantir vaga na próxima.';
+  }
+}
+
+function initDesafio() {
+  // Links de WhatsApp com mensagem pronta
+  document.querySelectorAll('[data-whatsapp]').forEach((a) => {
+    if (PROFISSIONAL.whatsappUrl) a.href = `${PROFISSIONAL.whatsappUrl}?text=${encodeURIComponent(a.dataset.whatsapp)}`;
+  });
+
+  if (document.querySelector('[data-countdown], [data-countdown-curto]')) {
+    atualizarContagem();
+    setInterval(atualizarContagem, 1000);
+  }
+
+  // Quanto é 10% do seu peso?
+  const metaPeso = $('#metaPeso');
+  if (metaPeso) {
+    let espera;
+    metaPeso.addEventListener('input', () => {
+      clearTimeout(espera);
+      espera = setTimeout(() => {
+        const p = parseFloat(metaPeso.value);
+        if (!(p >= 40 && p <= 300)) return;
+        countUp($('#metaKg'), p * 0.1, { decimals: 1, duration: 1200 });
+        countUp($('#metaSemana'), p * 0.01, { decimals: 2, duration: 1200 });
+        countUp($('#metaFinal'), p * 0.9, { decimals: 1, duration: 1600 });
+      }, 450);
+    });
+  }
+}
+
 // Ao abrir os arquivos direto do computador, links de pasta ("calculadora/") precisam do index.html
 function ajustarLinksLocais() {
   if (location.protocol !== 'file:') return;
@@ -536,6 +619,7 @@ function ajustarLinksLocais() {
 document.addEventListener('DOMContentLoaded', () => {
   ajustarLinksLocais();
   aplicarDadosProfissional();
+  initDesafio();
   efeitosInterativos();
   if (!$('#faList')) return; // páginas sem a calculadora
 
