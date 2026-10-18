@@ -1,0 +1,5 @@
+{
+  "redirects": [
+    { "source": "/", "destination": "/desafio10em10", "permanent": false }
+  ]
+}

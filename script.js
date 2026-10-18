@@ -616,7 +616,17 @@ function ajustarLinksLocais() {
   });
 }
 
+// Remove da barra de endereço os parâmetros de rastreio que o Instagram/Facebook adicionam (utm_*, fbclid...)
+function limparEndereco() {
+  const url = new URL(location.href);
+  const rastreio = [...url.searchParams.keys()].filter((k) => /^(utm_|fbclid$|gclid$|igshid$|mc_)/.test(k));
+  if (!rastreio.length) return;
+  rastreio.forEach((k) => url.searchParams.delete(k));
+  history.replaceState(null, '', url.pathname + url.search + url.hash);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+  limparEndereco();
   ajustarLinksLocais();
   aplicarDadosProfissional();
   initDesafio();
