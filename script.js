@@ -571,7 +571,7 @@ function atualizarContagem() {
     const pct = Math.min(100, Math.max(0, (agora - DESAFIO.inicio) / total * 100));
     barra.style.width = pct + '%';
     $('#linhaStatus').textContent = antes
-      ? 'O desafio ainda não começou: ainda dá tempo de entrar.'
+      ? ($('#linhaStatus').dataset.antes || 'O desafio ainda não começou: ainda dá tempo de entrar.')
       : durante ? `Semana ${Math.min(10, Math.floor((agora - DESAFIO.inicio) / 6048e5) + 1)} de 10 · ${fmt(pct)}% do caminho percorrido.`
         : 'Turma encerrada. Fale comigo para garantir vaga na próxima.';
   }

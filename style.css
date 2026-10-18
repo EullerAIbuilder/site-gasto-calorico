@@ -791,3 +791,25 @@ body { overflow-x: clip; }
   .desafio-painel .desafio-sub { font-size: 1rem !important; }
   .desafio-painel .hero-botoes .btn { width: 100%; text-align: center; }
 }
+
+/* ============ PÁGINA DE BOAS-VINDAS (compradores) ============ */
+.bv-mensagem {
+  display: flex; align-items: center; gap: 18px; text-align: left;
+  max-width: 640px; margin: 4px auto 0; padding: 16px 20px; border-radius: 18px;
+  background: rgba(255,255,255,.04); border: 1px solid rgba(201,162,39,.35);
+}
+.bv-mensagem img {
+  width: 76px; height: 76px; border-radius: 50%; object-fit: cover; object-position: center 12%;
+  border: 3px solid var(--gold); flex-shrink: 0;
+}
+.bv-mensagem p { margin: 0 !important; color: #d7e2dc !important; font-size: 1rem !important; font-style: italic; max-width: none !important; }
+.bv-mensagem p strong { color: var(--gold-light); }
+.bv-mensagem p span { display: block; margin-top: 6px; font-style: normal; font-size: .82rem; color: var(--gold-light); }
+.bv-link { display: inline-block; margin-top: 10px; font-weight: 600; font-size: .88rem; color: var(--green-700); }
+.bv-cta-txt { color: #c4d3cb; margin: 12px auto 0; max-width: 560px; }
+.cta-final .bv-cta-txt + .btn { margin-top: 22px; }
+@media (max-width: 600px) {
+  .bv-mensagem { flex-direction: column; text-align: center; }
+}
+.hero-desafio.bv-hero { padding-bottom: 56px; }
+.sobre-main.bv-main { margin-top: 44px; }
