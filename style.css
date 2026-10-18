@@ -816,3 +816,39 @@ body { overflow-x: clip; }
 /* Depois do início da turma: sem contagem, inscrições abertas */
 .countdown.aberto .cd-boxes { display: none; }
 .linha-status strong { color: var(--green-700); }
+
+/* ============ PÁGINA DE INSCRIÇÃO (checkout) ============ */
+.hero-desafio.insc-hero { padding-bottom: 70px; }
+.sobre-main.insc-main { margin-top: 44px; }
+.insc-preco { margin: 6px auto 18px; display: flex; flex-direction: column; align-items: center; }
+.insc-de { color: #a9bdb2; font-size: .82rem; letter-spacing: .14em; text-transform: uppercase; }
+.insc-valor {
+  font: 700 clamp(3.6rem, 10vw, 5.4rem)/1 'Playfair Display', serif; margin: 6px 0;
+  background: linear-gradient(180deg, #fff3c4 0%, #e6c65c 45%, #c9a227 80%);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  filter: drop-shadow(0 0 18px rgba(230,198,92,.4));
+}
+.insc-valor small { font-size: .38em; vertical-align: .9em; margin-right: 6px; }
+.insc-parc { color: #d7e2dc; font-size: 1.05rem; }
+.insc-parc strong { color: var(--gold-light); }
+.insc-btn { font-size: 1.1rem !important; padding: 18px 42px !important; }
+.insc-selos { list-style: none; display: flex; justify-content: center; flex-wrap: wrap; gap: 8px 18px; margin: 16px 0 6px; }
+.insc-selos li { font-size: .85rem; color: #d7e2dc; background: rgba(255,255,255,.05); border: 1px solid rgba(201,162,39,.3); padding: 6px 12px; border-radius: 999px; }
+.insc-sub { color: var(--gray-600); margin-top: 8px; font-size: .95rem; }
+.checklist li strong { color: var(--green-800); }
+.insc-ancora {
+  display: flex; align-items: center; justify-content: space-between; gap: 22px; flex-wrap: wrap;
+  background: var(--white); border-radius: var(--radius); padding: 26px 30px; box-shadow: var(--shadow);
+  border-left: 5px solid var(--gold);
+}
+.insc-ancora p { max-width: 640px; margin-top: 4px; color: var(--gray-900); }
+.insc-ancora strong { color: var(--green-700); }
+.insc-final-preco { color: var(--gold-light); font-weight: 600; font-size: 1.1rem; margin: 14px 0 0; }
+.cta-final .insc-final-preco + .btn { margin-top: 20px; }
+.insc-duvida { color: #c4d3cb; margin-top: 18px; font-size: .92rem; }
+.insc-duvida a { color: var(--gold-light); font-weight: 600; }
+@media (max-width: 600px) {
+  .insc-btn { width: 100%; padding: 16px 20px !important; }
+  .insc-ancora { padding: 22px 18px; }
+  .insc-ancora .btn { width: 100%; text-align: center; }
+}

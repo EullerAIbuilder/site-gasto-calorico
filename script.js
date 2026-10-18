@@ -9,7 +9,8 @@ const PROFISSIONAL = {
   instagramUrl: 'https://www.instagram.com/oeulleraugusto/',
   youtubeNome: '@oeulleraugusto',
   youtubeUrl: 'https://www.youtube.com/@oeulleraugusto',
-  whatsappUrl: 'https://wa.me/5511971972977'            // se vazio, o botão de consulta abre o Instagram
+  whatsappUrl: 'https://wa.me/5511971972977',           // se vazio, o botão de consulta abre o Instagram
+  checkoutDesafio: 'https://chk.eduzz.com/60E2OO8DW3'    // página de pagamento da Eduzz (Desafio 10 em 10)
 };
 
 /* =========================================================
@@ -567,6 +568,9 @@ function atualizarContagem() {
 }
 
 function initDesafio() {
+  // Botões de pagamento apontam para o checkout configurado acima
+  document.querySelectorAll('[data-checkout]').forEach((a) => { if (PROFISSIONAL.checkoutDesafio) a.href = PROFISSIONAL.checkoutDesafio; });
+
   // Links de WhatsApp com mensagem pronta
   document.querySelectorAll('[data-whatsapp]').forEach((a) => {
     if (PROFISSIONAL.whatsappUrl) a.href = `${PROFISSIONAL.whatsappUrl}?text=${encodeURIComponent(a.dataset.whatsapp)}`;
