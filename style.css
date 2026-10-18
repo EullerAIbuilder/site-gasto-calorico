@@ -813,3 +813,6 @@ body { overflow-x: clip; }
 }
 .hero-desafio.bv-hero { padding-bottom: 56px; }
 .sobre-main.bv-main { margin-top: 44px; }
+/* Depois do início da turma: sem contagem, inscrições abertas */
+.countdown.aberto .cd-boxes { display: none; }
+.linha-status strong { color: var(--green-700); }

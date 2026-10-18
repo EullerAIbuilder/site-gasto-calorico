@@ -526,8 +526,7 @@ function efeitosInterativos() {
    DESAFIO 10 EM 10 — datas no horário de Brasília (UTC−3)
    ========================================================= */
 const DESAFIO = {
-  inicio: new Date('2026-10-23T00:00:00-03:00'),
-  fim: new Date('2027-01-01T00:00:00-03:00') // até 31/12 às 23h59
+  inicio: new Date('2026-10-23T00:00:00-03:00') // início da turma; quem entrar depois tem 10 semanas a partir do próprio início
 };
 
 const dois = (n) => String(n).padStart(2, '0');
@@ -535,46 +534,36 @@ const dois = (n) => String(n).padStart(2, '0');
 function atualizarContagem() {
   const agora = Date.now();
   const antes = agora < DESAFIO.inicio;
-  const durante = !antes && agora < DESAFIO.fim;
-  const alvo = antes ? DESAFIO.inicio : DESAFIO.fim;
-  const resta = Math.max(0, alvo - agora);
+  const resta = Math.max(0, DESAFIO.inicio - agora);
   const dias = Math.floor(resta / 864e5);
   const horas = Math.floor(resta / 36e5) % 24;
   const min = Math.floor(resta / 6e4) % 60;
   const seg = Math.floor(resta / 1e3) % 60;
 
+  // Antes de 23/10: contagem regressiva. Depois: inscrições abertas (10 semanas a partir do início de cada pessoa)
   document.querySelectorAll('[data-countdown]').forEach((el) => {
     el.querySelector('.cd-dias').textContent = dois(dias);
     el.querySelector('.cd-horas').textContent = dois(horas);
     el.querySelector('.cd-min').textContent = dois(min);
     el.querySelector('.cd-seg').textContent = dois(seg);
-    el.classList.toggle('encerrado', !antes && !durante);
+    el.classList.toggle('aberto', !antes);
   });
-  const label = antes ? 'O desafio começa em' : durante ? 'O desafio está acontecendo! Termina em' : 'Esta turma foi encerrada';
-  document.querySelectorAll('[data-countdown-label]').forEach((el) => { el.textContent = label; });
+  document.querySelectorAll('[data-countdown-label]').forEach((el) => {
+    el.textContent = antes ? 'A turma começa em' : 'Turma em andamento · inscrições abertas';
+  });
   document.querySelectorAll('[data-countdown-nota]').forEach((el) => {
-    el.textContent = antes ? 'Início: 23 de outubro, 00h (horário de Brasília)'
-      : durante ? 'Fim: 31 de dezembro (horário de Brasília)' : 'Fale comigo para entrar na próxima turma';
+    el.textContent = antes
+      ? 'Início da turma: 23 de outubro, 00h (horário de Brasília) · quem entrar depois também tem 10 semanas completas'
+      : 'Entre quando quiser: suas 10 semanas de acompanhamento começam a partir do seu início.';
   });
   document.querySelectorAll('[data-cd-pill]').forEach((el) => {
-    el.textContent = antes ? 'Turma de fim de ano · começa em 23/10' : durante ? 'Turma de fim de ano · em andamento' : 'Turma encerrada · próxima em breve';
+    el.textContent = antes ? 'Turma começa em 23/10 · entre quando quiser' : 'Inscrições abertas · comece quando quiser';
   });
-  document.querySelectorAll('[data-cd-frase]').forEach((el) => { el.textContent = antes ? 'começa em' : durante ? 'termina em' : 'encerrado'; });
+  document.querySelectorAll('[data-cd-frase]').forEach((el) => { el.textContent = antes ? 'começa em' : '· inscrições abertas, comece quando quiser'; });
   document.querySelectorAll('[data-countdown-curto]').forEach((el) => {
-    el.textContent = (antes || durante) ? `${dias}d ${dois(horas)}h ${dois(min)}min ${dois(seg)}s` : '';
+    el.textContent = antes ? `${dias}d ${dois(horas)}h ${dois(min)}min ${dois(seg)}s` : '';
+    el.hidden = !antes;
   });
-
-  // Linha do desafio (página inicial)
-  const barra = $('#linhaProgresso');
-  if (barra) {
-    const total = DESAFIO.fim - DESAFIO.inicio;
-    const pct = Math.min(100, Math.max(0, (agora - DESAFIO.inicio) / total * 100));
-    barra.style.width = pct + '%';
-    $('#linhaStatus').textContent = antes
-      ? ($('#linhaStatus').dataset.antes || 'O desafio ainda não começou: ainda dá tempo de entrar.')
-      : durante ? `Semana ${Math.min(10, Math.floor((agora - DESAFIO.inicio) / 6048e5) + 1)} de 10 · ${fmt(pct)}% do caminho percorrido.`
-        : 'Turma encerrada. Fale comigo para garantir vaga na próxima.';
-  }
 }
 
 function initDesafio() {
