@@ -10,7 +10,8 @@ const PROFISSIONAL = {
   youtubeNome: '@oeulleraugusto',
   youtubeUrl: 'https://www.youtube.com/@oeulleraugusto',
   whatsappUrl: 'https://wa.me/5511971972977',           // se vazio, o botão de consulta abre o Instagram
-  checkoutDesafio: 'https://chk.eduzz.com/60E2OO8DW3'    // página de pagamento da Eduzz (Desafio 10 em 10)
+  checkoutDesafio: 'https://chk.eduzz.com/60E2OO8DW3',   // página de pagamento da Eduzz (Desafio 10 em 10)
+  agendaUrl: 'https://calendar.app.google/Gejym8KBETNPZoP79'   // página de agendamento do Google Agenda
 };
 
 /* =========================================================
@@ -463,7 +464,7 @@ function aplicarDadosProfissional() {
   $('#lnkWhatsapp').href = PROFISSIONAL.whatsappUrl;
   $('#lnkInstagram').href = PROFISSIONAL.instagramUrl;
   $('#lnkYoutube').href = PROFISSIONAL.youtubeUrl;
-  $('#lnkCta').href = PROFISSIONAL.whatsappUrl || PROFISSIONAL.instagramUrl;
+  $('#lnkCta').href = PROFISSIONAL.agendaUrl || PROFISSIONAL.whatsappUrl || PROFISSIONAL.instagramUrl;
   $('#ano').textContent = new Date().getFullYear();
 }
 
@@ -527,12 +528,23 @@ function efeitosInterativos() {
    DESAFIO 10 EM 10 — datas no horário de Brasília (UTC−3)
    ========================================================= */
 const DESAFIO = {
-  inicio: new Date('2026-10-23T00:00:00-03:00') // início da turma; quem entrar depois tem 10 semanas a partir do próprio início
+  // Data de lançamento ainda não definida: o site mostra "Em breve" e a lista de espera.
+  // Quando houver data, troque null por algo como new Date('2026-11-16T00:00:00-03:00') para voltar o cronômetro.
+  inicio: null
 };
 
 const dois = (n) => String(n).padStart(2, '0');
 
 function atualizarContagem() {
+  if (!DESAFIO.inicio) {  // modo "lançamento em breve"
+    document.querySelectorAll('[data-countdown]').forEach((el) => el.classList.add('aberto'));
+    document.querySelectorAll('[data-countdown-label]').forEach((el) => { el.textContent = 'Lançamento em breve'; });
+    document.querySelectorAll('[data-countdown-nota]').forEach((el) => { el.textContent = 'Fique de olho no WhatsApp: eu aviso a data de início em primeira mão.'; });
+    document.querySelectorAll('[data-cd-pill]').forEach((el) => { el.textContent = 'Lançamento em breve · lista de espera aberta'; });
+    document.querySelectorAll('[data-cd-frase]').forEach((el) => { el.textContent = 'lançamento em breve'; });
+    document.querySelectorAll('[data-countdown-curto]').forEach((el) => { el.textContent = ''; el.hidden = true; });
+    return;
+  }
   const agora = Date.now();
   const antes = agora < DESAFIO.inicio;
   const resta = Math.max(0, DESAFIO.inicio - agora);
@@ -576,9 +588,9 @@ function initDesafio() {
     if (PROFISSIONAL.whatsappUrl) a.href = `${PROFISSIONAL.whatsappUrl}?text=${encodeURIComponent(a.dataset.whatsapp)}`;
   });
 
-  if (document.querySelector('[data-countdown], [data-countdown-curto]')) {
+  if (document.querySelector('[data-countdown], [data-countdown-curto], [data-cd-pill], [data-cd-frase]')) {
     atualizarContagem();
-    setInterval(atualizarContagem, 1000);
+    if (DESAFIO.inicio) setInterval(atualizarContagem, 1000);
   }
 
   // Quanto é 10% do seu peso?

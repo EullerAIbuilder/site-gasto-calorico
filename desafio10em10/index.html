@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Desafio 10 em 10 | Euller Augusto Nutricionista</title>
-  <meta name="description" content="Desafio 10 em 10: perca até 10% do seu peso em 10 semanas, contadas a partir do seu início, com acompanhamento on-line do nutricionista Euller Augusto.">
+  <meta name="description" content="Desafio 10 em 10: perca até 10% do seu peso em 10 semanas com acompanhamento on-line do nutricionista Euller Augusto. Lançamento em breve: entre na lista de espera.">
   <link rel="icon" href="../favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png">
   <link rel="apple-touch-icon" href="../apple-touch-icon.png">
@@ -32,7 +32,7 @@
         <a href="../sobre/">O Euller</a>
         <a href="../calculadora/">Calculadora</a>
         <a href="../calculadora/#ciencia">Ciência</a>
-        <a href="#contato" class="nav-cta">Consultoria</a>
+        <a href="#agendar" class="nav-cta">Agendar consulta</a>
       </nav>
     </div>
   </header>
@@ -41,27 +41,22 @@
   <section class="hero hero-desafio">
     <div class="container desafio-hero">
       <div class="desafio-painel">
-      <span class="pill" data-cd-pill>Turma começa em 23/10 · entre quando quiser</span>
+      <span class="pill">Lançamento em breve · lista de espera aberta</span>
       <h1 class="titulo-box">
         <span class="t-desafio">Desafio</span>
         <span class="t-numeros">10<em>em</em>10</span>
         <span class="t-legenda">10% do peso · 10 semanas</span>
       </h1>
-      <p class="desafio-sub">Perca até <strong>10% do seu peso em 10 semanas</strong>, com plano individualizado e acompanhamento de um nutricionista. Entrou depois de 23/10? Sem problema: <strong>suas 10 semanas começam no seu início</strong>.</p>
+      <p class="desafio-sub">Perca até <strong>10% do seu peso em 10 semanas</strong>, com plano individualizado e acompanhamento de um nutricionista.</p>
 
-      <div class="countdown" data-countdown>
-        <p class="cd-label" data-countdown-label>O desafio começa em</p>
-        <div class="cd-boxes">
-          <div class="cd-box"><strong class="cd-dias">--</strong><span>dias</span></div>
-          <div class="cd-box"><strong class="cd-horas">--</strong><span>horas</span></div>
-          <div class="cd-box"><strong class="cd-min">--</strong><span>minutos</span></div>
-          <div class="cd-box"><strong class="cd-seg">--</strong><span>segundos</span></div>
-        </div>
-        <p class="cd-nota" data-countdown-nota>Início da turma: 23 de outubro, 00h (horário de Brasília) · quem entrar depois também tem 10 semanas completas</p>
+      <div class="em-breve-lanc">
+        <span class="eb-rotulo">Lançamento</span>
+        <strong class="eb-titulo">EM BREVE</strong>
+        <p class="eb-texto">Estamos preparando algo grande para o seu emagrecimento. Entre na <strong>lista de espera</strong> e seja o primeiro a saber quando as inscrições abrirem.</p>
       </div>
 
       <div class="hero-botoes centro">
-        <a href="../desafio10em10/inscricao/" class="btn btn-gold btn-pulse">Quero garantir minha vaga</a>
+        <a data-whatsapp="Olá, Euller! Quero entrar na lista de espera do Desafio 10 em 10 e ser avisado(a) do lançamento." href="#" target="_blank" rel="noopener" class="btn btn-gold btn-pulse">Quero entrar na lista de espera</a>
         <a href="#meta" class="btn btn-outline">Quanto é 10% do meu peso?</a>
       </div>
 
@@ -76,6 +71,29 @@
   </section>
 
   <main class="sobre-main">
+
+    <!-- ===== AGENDAR CONSULTA ===== -->
+    <section class="container" id="agendar">
+      <div class="agenda-card" data-reveal>
+        <div class="agenda-txt">
+          <span class="rotulo">Consulta individual</span>
+          <h2>Agende sua consulta</h2>
+          <p>Não quer esperar o lançamento do desafio? Marque agora sua consulta nutricional on-line comigo, no horário que for melhor para você.</p>
+          <ol class="agenda-passos">
+            <li><span>1</span><div><strong>Escolha o horário</strong> no calendário ao lado. Atendo das 8h às 11h e das 14h às 19h.</div></li>
+            <li><span>2</span><div><strong>Preencha o formulário pré-consulta</strong>, para eu chegar na consulta já conhecendo você.</div></li>
+            <li><span>3</span><div><strong>Consulta pelo Google Meet.</strong> O link chega no seu e-mail de confirmação.</div></li>
+          </ol>
+          <div class="agenda-botoes">
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSeUs0LPtoVxEXoMaYu_0epDBJ5fcAbYhyuP08v0uVSL8c9GvQ/viewform" target="_blank" rel="noopener" class="btn btn-gold">📋 Formulário pré-consulta</a>
+            <a href="https://calendar.app.google/Gejym8KBETNPZoP79" target="_blank" rel="noopener" class="btn btn-outline-escuro agenda-abrir">Abrir agenda em nova aba</a>
+          </div>
+        </div>
+        <div class="agenda-frame">
+          <iframe src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ0s0TeBJKb9TuPtjzJTMCiVEqDDXyWTkxqh0jV6PcztvXNjheFt1chNZKyRE39s7y1hIoEcV8ft?gv=true" title="Agendar consulta com Euller Augusto" loading="lazy"></iframe>
+        </div>
+      </div>
+    </section>
 
     <!-- ===== QUANTO É 10%? ===== -->
     <section class="container" id="meta">
@@ -93,7 +111,7 @@
           <div class="meta-item"><span>Meta do desafio</span><strong><span id="metaKg">0</span> kg</strong></div>
           <div class="meta-item"><span>Por semana, em média</span><strong><span id="metaSemana">0</span> kg</strong></div>
           <div class="meta-item destaque"><span>Seu peso em 10 semanas</span><strong><span id="metaFinal">0</span> kg</strong></div>
-          <a href="../desafio10em10/inscricao/" class="btn btn-gold">Quero chegar lá</a>
+          <a data-whatsapp="Olá, Euller! Quero entrar na lista de espera do Desafio 10 em 10 e ser avisado(a) do lançamento." href="#" target="_blank" rel="noopener" class="btn btn-gold">Quero chegar lá: me avise no lançamento</a>
         </div>
       </div>
     </section>
@@ -130,7 +148,7 @@
         <h2>Do primeiro contato ao resultado</h2>
       </div>
       <ol class="passos">
-        <li data-reveal><span class="passo-num">1</span><h3>Garanta sua vaga</h3><p>Faça sua inscrição com pagamento seguro: à vista, em até 12x no cartão ou com pagamento combinado.</p></li>
+        <li data-reveal><span class="passo-num">1</span><h3>Entre na lista de espera</h3><p>Você é avisado(a) pelo WhatsApp assim que as inscrições abrirem, antes de todo mundo.</p></li>
         <li data-reveal><span class="passo-num">2</span><h3>Avaliação completa</h3><p>Entendo sua rotina, histórico, preferências e objetivos.</p></li>
         <li data-reveal><span class="passo-num">3</span><h3>Plano individualizado</h3><p>Estratégia alimentar baseada em evidências, feita para caber no seu dia a dia.</p></li>
         <li data-reveal><span class="passo-num">4</span><h3>10 semanas de acompanhamento</h3><p>Ajustes conforme sua evolução, durante 10 semanas a partir do seu início.</p></li>
@@ -141,11 +159,11 @@
     <section class="container">
       <div class="card linha-card" data-reveal>
         <div class="linha-topo">
-          <div><span class="rotulo">Turma começa</span><strong>23 de outubro</strong></div>
+          <div><span class="rotulo">Lançamento</span><strong>Em breve</strong></div>
           <div class="linha-centro"><span class="rotulo">Duração</span><strong>10 semanas</strong></div>
-          <div class="linha-fim"><span class="rotulo">Entrou depois?</span><strong>Sem problema</strong></div>
+          <div class="linha-fim"><span class="rotulo">Seu início</span><strong>Você escolhe</strong></div>
         </div>
-        <p class="linha-status">Suas 10 semanas são contadas a partir do <strong>seu início</strong>. Se você entrar depois de 23/10, continua tendo as 10 semanas completas de acompanhamento.</p>
+        <p class="linha-status">As 10 semanas são contadas a partir do <strong>seu início</strong>. Entre na lista de espera para ser avisado(a) primeiro quando as inscrições abrirem.</p>
       </div>
     </section>
 
@@ -187,12 +205,12 @@
       </div>
       <div class="faq" data-reveal>
         <details>
-          <summary>Quando o desafio começa e quanto tempo dura?</summary>
-          <p>A turma começa em 23 de outubro. O acompanhamento dura sempre 10 semanas, contadas a partir do seu início.</p>
+          <summary>Quando o desafio começa?</summary>
+          <p>O lançamento será em breve. Quem estiver na lista de espera é avisado(a) primeiro, pelo WhatsApp, assim que as inscrições abrirem.</p>
         </details>
         <details>
-          <summary>Posso entrar depois de 23 de outubro?</summary>
-          <p>Pode, sem problema! Seu plano segue em sequência e você continua tendo as 10 semanas completas. Por exemplo: se você começar uma semana depois, suas 10 semanas começam a contar a partir daí.</p>
+          <summary>Quanto tempo dura?</summary>
+          <p>São sempre 10 semanas de acompanhamento, contadas a partir do seu início.</p>
         </details>
         <details>
           <summary>É on-line?</summary>
@@ -208,7 +226,7 @@
         </details>
         <details>
           <summary>Quanto custa e como garanto minha vaga?</summary>
-          <p>O investimento é de R$ 397 à vista ou em até 12x no cartão, e também dá para usar pagamento combinado, com pagamento seguro pela Eduzz. <a href="../desafio10em10/inscricao/">Clique aqui para garantir sua vaga</a>. Ficou com dúvida? Fale comigo no WhatsApp pelo botão no canto da tela.</p>
+          <p>Os valores e as condições serão divulgados no lançamento. <a data-whatsapp="Olá, Euller! Quero entrar na lista de espera do Desafio 10 em 10 e ser avisado(a) do lançamento." href="#" target="_blank" rel="noopener">Entre na lista de espera</a> para receber tudo em primeira mão pelo WhatsApp.</p>
         </details>
       </div>
     </section>
@@ -217,16 +235,11 @@
     <section class="container">
       <div class="cta-final" data-reveal>
         <h2>Daqui a 10 semanas, você vai agradecer por ter começado hoje.</h2>
-        <div class="countdown compacto" data-countdown>
-          <p class="cd-label" data-countdown-label>O desafio começa em</p>
-          <div class="cd-boxes">
-            <div class="cd-box"><strong class="cd-dias">--</strong><span>dias</span></div>
-            <div class="cd-box"><strong class="cd-horas">--</strong><span>horas</span></div>
-            <div class="cd-box"><strong class="cd-min">--</strong><span>min</span></div>
-            <div class="cd-box"><strong class="cd-seg">--</strong><span>seg</span></div>
-          </div>
+        <div class="em-breve-lanc compacto">
+          <span class="eb-rotulo">Lançamento</span>
+          <strong class="eb-titulo">EM BREVE</strong>
         </div>
-        <a href="../desafio10em10/inscricao/" class="btn btn-gold btn-big-inline btn-pulse">Quero garantir minha vaga</a>
+        <a data-whatsapp="Olá, Euller! Quero entrar na lista de espera do Desafio 10 em 10 e ser avisado(a) do lançamento." href="#" target="_blank" rel="noopener" class="btn btn-gold btn-big-inline btn-pulse">Quero entrar na lista de espera</a>
       </div>
     </section>
   </main>
@@ -271,7 +284,7 @@
     </div>
   </footer>
 
-  <a id="floatBtn" class="float-btn" data-whatsapp="Olá, Euller! Quero saber mais sobre o Desafio 10 em 10." target="_blank" rel="noopener" href="#contato" aria-label="Fale com o nutricionista">
+  <a id="floatBtn" class="float-btn" data-whatsapp="Olá, Euller! Quero saber mais sobre o Desafio 10 em 10 e entrar na lista de espera." target="_blank" rel="noopener" href="#contato" aria-label="Fale com o nutricionista">
     <img class="float-icon" src="../img/euller-principal.jpg" alt=""><span class="float-text">Fale com o Euller</span>
   </a>
 
