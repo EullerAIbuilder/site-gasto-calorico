@@ -913,3 +913,10 @@ body { overflow-x: clip; }
   .agenda-frame iframe { height: 720px; }
   .agenda-botoes .btn { width: 100%; text-align: center; }
 }
+/* No celular o calendário embutido obriga a arrastar dentro da janelinha: troca por um botão que abre a agenda em tela cheia */
+.agenda-celular { display: none; }
+@media (max-width: 640px) {
+  .agenda-frame, .agenda-abrir { display: none; }
+  .agenda-celular { display: inline-block; font-size: 1.05rem; padding: 16px 20px; }
+  .agenda-botoes .btn-gold:not(.agenda-celular) { background: transparent; color: var(--gold-light); border: 1px solid var(--gold); }
+}
