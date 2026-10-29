@@ -610,6 +610,82 @@ function initDesafio() {
   }
 }
 
+/* =========================================================
+   LISTA DE ESPERA — formulário que salva numa planilha do Google
+   ========================================================= */
+const LISTA = {
+  planilhaUrl: 'https://script.google.com/macros/s/AKfycbyQwLFFaT4Yo5NS0njkUMF8d1rBUBkXMobY-_yqS2XhjShSOfPitHd-3TeSUFZrlKh-8Q/exec',   // endereço do Apps Script publicado (vazio = modo de teste, nada é salvo)
+  grupoUrl: 'https://whatsapp.com/channel/0029Vb9XKUWDeON7tvNFcE0b'   // canal de avisos no WhatsApp (vazio = botão escondido)
+};
+
+const mascaraWhats = (v) => {
+  const d = v.replace(/\D/g, '').slice(0, 11);
+  if (d.length <= 2) return d.length ? `(${d}` : '';
+  if (d.length <= 6) return `(${d.slice(0, 2)}) ${d.slice(2)}`;
+  if (d.length <= 10) return `(${d.slice(0, 2)}) ${d.slice(2, 6)}-${d.slice(6)}`;
+  return `(${d.slice(0, 2)}) ${d.slice(2, 7)}-${d.slice(7)}`;
+};
+
+function initListaEspera() {
+  const modal = $('#listaEspera');
+  if (!modal) return;
+  const form = $('#listaForm'), erro = $('#listaErro');
+  let origem = 'site';
+
+  const abrir = (de) => {
+    origem = de || 'site';
+    if (!modal.open) modal.showModal();
+    if (!form.hidden) setTimeout(() => $('#lNome').focus(), 50);
+  };
+  document.querySelectorAll('[data-lista]').forEach((a) => a.addEventListener('click', (e) => {
+    e.preventDefault();
+    abrir(a.textContent.trim().slice(0, 60));
+  }));
+  modal.querySelector('[data-lista-fechar]').addEventListener('click', () => modal.close());
+  modal.addEventListener('click', (e) => { if (e.target === modal) modal.close(); });   // clique fora da janela
+  modal.addEventListener('close', () => { if (location.hash === '#lista') history.replaceState(null, '', location.pathname + location.search); });
+  if (location.hash === '#lista') abrir('link #lista');
+
+  const grupo = modal.querySelector('[data-lista-grupo]');
+  if (LISTA.grupoUrl) grupo.href = LISTA.grupoUrl;
+  else if (LISTA.planilhaUrl) grupo.hidden = true;   // no modo de teste o botão aparece só para ver o visual
+
+  $('#lWhats').addEventListener('input', (e) => { e.target.value = mascaraWhats(e.target.value); });
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const d = Object.fromEntries(new FormData(form));
+    if (d.site) return;   // campo invisível preenchido = robô
+    const digitos = d.whatsapp.replace(/\D/g, '');
+    erro.textContent =
+      d.nome.trim().length < 2 ? 'Digite o seu nome.' :
+      digitos.length < 10 ? 'Confira o seu WhatsApp, com DDD.' :
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email.trim()) ? 'Confira o seu e-mail.' :
+      !d.aceite ? 'Marque a autorização para eu poder te avisar.' : '';
+    if (erro.textContent) return;
+
+    const btn = form.querySelector('[type=submit]');
+    btn.disabled = true; btn.textContent = 'Enviando...';
+    try {
+      if (LISTA.planilhaUrl) {
+        // no-cors: o Google não devolve resposta legível, mas recebe os dados
+        await fetch(LISTA.planilhaUrl, { method: 'POST', mode: 'no-cors', body: new URLSearchParams({
+          nome: d.nome.trim(), whatsapp: d.whatsapp, email: d.email.trim(),
+          dificuldade: (d.dificuldade || '').trim(), origem, pagina: location.pathname
+        }) });
+      }
+      modal.querySelector('[data-lista-nome]').textContent = d.nome.trim().split(' ')[0];
+      modal.querySelector('[data-lista-teste]').hidden = !!(LISTA.planilhaUrl && LISTA.grupoUrl);
+      form.hidden = true;
+      $('#listaOk').hidden = false;
+    } catch {
+      erro.textContent = 'Não consegui enviar agora. Verifique sua internet e tente de novo.';
+    } finally {
+      btn.disabled = false; btn.textContent = 'Quero entrar na lista';
+    }
+  });
+}
+
 // Ao abrir os arquivos direto do computador, links de pasta ("calculadora/") precisam do index.html
 function ajustarLinksLocais() {
   if (location.protocol !== 'file:') return;
@@ -635,6 +711,7 @@ document.addEventListener('DOMContentLoaded', () => {
   ajustarLinksLocais();
   aplicarDadosProfissional();
   initDesafio();
+  initListaEspera();
   efeitosInterativos();
   if (!$('#faList')) return; // páginas sem a calculadora
 

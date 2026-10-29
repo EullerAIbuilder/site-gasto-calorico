@@ -920,3 +920,51 @@ body { overflow-x: clip; }
   .agenda-celular { display: inline-block; font-size: 1.05rem; padding: 16px 20px; }
   .agenda-botoes .btn-gold:not(.agenda-celular) { background: transparent; color: var(--gold-light); border: 1px solid var(--gold); }
 }
+
+/* ============ LISTA DE ESPERA (janela com formulário) ============ */
+.lista-modal {
+  width: min(520px, calc(100% - 32px)); max-height: calc(100dvh - 32px); overflow-y: auto;
+  margin: auto; padding: 34px 30px 26px; border-radius: var(--radius);
+  background: linear-gradient(150deg, var(--black), var(--green-900)); color: var(--white);
+  border: 1.5px solid rgba(201,162,39,.55); box-shadow: 0 30px 80px rgba(0,0,0,.6), 0 0 40px rgba(201,162,39,.18);
+}
+.lista-modal::backdrop { background: rgba(5,10,8,.78); backdrop-filter: blur(4px); }
+.lista-modal[open] { animation: lista-entra .3s ease-out; }
+@keyframes lista-entra { from { opacity: 0; transform: translateY(24px) scale(.97); } to { opacity: 1; transform: none; } }
+.lista-fechar {
+  position: absolute; top: 12px; right: 14px; width: 36px; height: 36px; border-radius: 50%;
+  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.15); color: #c4d3cb;
+  font-size: 1.4rem; line-height: 1; cursor: pointer;
+}
+.lista-fechar:hover { color: var(--gold-light); border-color: var(--gold); }
+.lista-modal h2 { font-size: clamp(1.6rem, 5vw, 2rem); margin: 6px 0 6px; }
+.lista-sub { color: #c4d3cb; font-size: .93rem; margin-bottom: 18px; }
+.lista-campo { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+.lista-campo label { font-size: .85rem; font-weight: 500; color: #e3ece7; }
+.lista-campo small { color: #8fa69a; font-weight: 400; }
+.lista-campo input, .lista-campo textarea {
+  width: 100%; padding: 12px 14px; border-radius: 12px; resize: vertical;
+  background: rgba(255,255,255,.06); border: 1.5px solid rgba(255,255,255,.16); color: var(--white);
+  font: 400 .95rem 'Poppins', sans-serif; transition: border-color .2s, box-shadow .2s;
+}
+.lista-campo input::placeholder, .lista-campo textarea::placeholder { color: #7f978b; }
+.lista-campo input:focus, .lista-campo textarea:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 4px rgba(201,162,39,.18); }
+.lista-mel { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.lista-aceite { display: flex; gap: 10px; align-items: flex-start; font-size: .8rem; color: #b8c7bf; margin: 4px 0 6px; cursor: pointer; }
+.lista-aceite input { width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px; accent-color: var(--gold); }
+.lista-erro { color: #ff9b8f; font-size: .85rem; min-height: 1.2em; margin: 4px 0 0; }
+.lista-modal .btn-big { display: block; text-align: center; margin-top: 10px; }
+.lista-modal .btn-big:disabled { opacity: .7; cursor: wait; }
+.lista-privacidade { text-align: center; font-size: .76rem; color: #8fa69a; margin-top: 12px; }
+.lista-ok { text-align: center; padding-top: 6px; }
+.lista-check {
+  width: 64px; height: 64px; margin: 0 auto 10px; border-radius: 50%; display: grid; place-items: center;
+  font-size: 2rem; font-weight: 700; color: var(--black);
+  background: linear-gradient(135deg, var(--gold), var(--gold-light)); box-shadow: 0 0 30px rgba(201,162,39,.45);
+}
+.lista-passo-extra { font-size: .9rem; color: #e3ece7; margin: 4px 0 6px; }
+.btn-whats { background: #1fa855; color: var(--white); box-shadow: 0 8px 22px rgba(31,168,85,.35); }
+.btn-whats:hover { box-shadow: 0 12px 28px rgba(31,168,85,.5); }
+.lista-teste { margin-top: 14px; font-size: .78rem; color: #e6c65c; background: rgba(201,162,39,.1); border: 1px dashed rgba(201,162,39,.5); border-radius: 10px; padding: 8px 10px; }
+@media (max-width: 480px) { .lista-modal { padding: 30px 18px 22px; } }
+.lista-modal [hidden] { display: none !important; }

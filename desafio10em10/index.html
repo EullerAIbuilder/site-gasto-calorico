@@ -56,7 +56,7 @@
       </div>
 
       <div class="hero-botoes centro">
-        <a data-whatsapp="Olá, Euller! Quero entrar na lista de espera do Desafio 10 em 10 e ser avisado(a) do lançamento." href="#" target="_blank" rel="noopener" class="btn btn-gold btn-pulse">Quero entrar na lista de espera</a>
+        <a data-lista href="#lista" class="btn btn-gold btn-pulse">Quero entrar na lista de espera</a>
         <a href="#meta" class="btn btn-outline">Quanto é 10% do meu peso?</a>
       </div>
 
@@ -112,7 +112,7 @@
           <div class="meta-item"><span>Meta do desafio</span><strong><span id="metaKg">0</span> kg</strong></div>
           <div class="meta-item"><span>Por semana, em média</span><strong><span id="metaSemana">0</span> kg</strong></div>
           <div class="meta-item destaque"><span>Seu peso em 10 semanas</span><strong><span id="metaFinal">0</span> kg</strong></div>
-          <a data-whatsapp="Olá, Euller! Quero entrar na lista de espera do Desafio 10 em 10 e ser avisado(a) do lançamento." href="#" target="_blank" rel="noopener" class="btn btn-gold">Quero chegar lá: me avise no lançamento</a>
+          <a data-lista href="#lista" class="btn btn-gold">Quero chegar lá: me avise no lançamento</a>
         </div>
       </div>
     </section>
@@ -227,7 +227,7 @@
         </details>
         <details>
           <summary>Quanto custa e como garanto minha vaga?</summary>
-          <p>Os valores e as condições serão divulgados no lançamento. <a data-whatsapp="Olá, Euller! Quero entrar na lista de espera do Desafio 10 em 10 e ser avisado(a) do lançamento." href="#" target="_blank" rel="noopener">Entre na lista de espera</a> para receber tudo em primeira mão pelo WhatsApp.</p>
+          <p>Os valores e as condições serão divulgados no lançamento. <a data-lista href="#lista">Entre na lista de espera</a> para receber tudo em primeira mão pelo WhatsApp.</p>
         </details>
       </div>
     </section>
@@ -240,7 +240,7 @@
           <span class="eb-rotulo">Lançamento</span>
           <strong class="eb-titulo">EM BREVE</strong>
         </div>
-        <a data-whatsapp="Olá, Euller! Quero entrar na lista de espera do Desafio 10 em 10 e ser avisado(a) do lançamento." href="#" target="_blank" rel="noopener" class="btn btn-gold btn-big-inline btn-pulse">Quero entrar na lista de espera</a>
+        <a data-lista href="#lista" class="btn btn-gold btn-big-inline btn-pulse">Quero entrar na lista de espera</a>
       </div>
     </section>
   </main>
@@ -288,6 +288,49 @@
   <a id="floatBtn" class="float-btn" data-whatsapp="Olá, Euller! Quero saber mais sobre o Desafio 10 em 10 e entrar na lista de espera." target="_blank" rel="noopener" href="#contato" aria-label="Fale com o nutricionista">
     <img class="float-icon" src="../img/euller-principal.jpg" alt=""><span class="float-text">Fale com o Euller</span>
   </a>
+
+  <!-- ===== LISTA DE ESPERA (formulário em janela) ===== -->
+  <dialog id="listaEspera" class="lista-modal" aria-labelledby="listaTitulo">
+    <button type="button" class="lista-fechar" data-lista-fechar aria-label="Fechar">×</button>
+    <form id="listaForm" class="lista-passo" novalidate>
+      <span class="rotulo">Desafio 10 em 10 · em breve</span>
+      <h2 id="listaTitulo">Entre na lista de espera</h2>
+      <p class="lista-sub">Quem está na lista é avisado primeiro quando as inscrições abrirem.</p>
+      <div class="lista-campo">
+        <label for="lNome">Seu nome</label>
+        <input id="lNome" name="nome" autocomplete="name" required maxlength="80" placeholder="Como você gostaria de ser chamado(a)">
+      </div>
+      <div class="lista-campo">
+        <label for="lWhats">WhatsApp</label>
+        <input id="lWhats" name="whatsapp" type="tel" inputmode="numeric" autocomplete="tel-national" required placeholder="(11) 91234-5678">
+      </div>
+      <div class="lista-campo">
+        <label for="lEmail">E-mail</label>
+        <input id="lEmail" name="email" type="email" autocomplete="email" required maxlength="120" placeholder="voce@email.com">
+      </div>
+      <div class="lista-campo">
+        <label for="lDific">O que mais te atrapalha para emagrecer hoje? <small>(opcional)</small></label>
+        <textarea id="lDific" name="dificuldade" rows="2" maxlength="300" placeholder="Ex.: falta de tempo, doces à noite, fins de semana..."></textarea>
+      </div>
+      <input class="lista-mel" name="site" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <label class="lista-aceite">
+        <input type="checkbox" name="aceite" required>
+        <span>Autorizo o Euller Augusto a falar comigo pelo WhatsApp e por e-mail sobre o Desafio 10 em 10. Posso pedir para sair da lista quando quiser.</span>
+      </label>
+      <p class="lista-erro" id="listaErro" role="alert"></p>
+      <button type="submit" class="btn btn-gold btn-big">Quero entrar na lista</button>
+      <p class="lista-privacidade">🔒 Seus dados ficam só comigo e são usados apenas para avisos do desafio.</p>
+    </form>
+    <div class="lista-passo lista-ok" id="listaOk" hidden>
+      <div class="lista-check">✓</div>
+      <h2>Você está na lista!</h2>
+      <p class="lista-sub">Obrigado, <strong data-lista-nome></strong>! Você vai ser uma das primeiras pessoas a saber quando as inscrições abrirem.</p>
+      <p class="lista-passo-extra">Último passo: siga o <strong>canal de avisos</strong> no WhatsApp e toque no 🔔 para receber a notificação do lançamento. Ninguém vê o seu número.</p>
+      <a data-lista-grupo href="#" target="_blank" rel="noopener" class="btn btn-whats btn-big">Seguir o canal de avisos no WhatsApp</a>
+      <a href="https://www.instagram.com/oeulleraugusto/" target="_blank" rel="noopener" class="btn btn-outline btn-big">Me acompanhe no Instagram</a>
+      <p class="lista-teste" data-lista-teste hidden>Modo de teste: a planilha e o canal ainda não foram conectados, então nada foi salvo.</p>
+    </div>
+  </dialog>
 
   <script src="../script.js"></script>
 </body>
