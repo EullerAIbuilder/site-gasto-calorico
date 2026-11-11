@@ -223,13 +223,13 @@ const $ = (s) => document.querySelector(s);
 const fmt = (n, dec = 0) => Number(n).toLocaleString('pt-BR', { minimumFractionDigits: dec, maximumFractionDigits: dec });
 
 // Efeito "count up": anima o número de 0 até o valor final
-function countUp(el, to, { duration = 1600, decimals = 0, prefix = '', suffix = '' } = {}) {
+function countUp(el, to, { from = 0, duration = 1600, decimals = 0, prefix = '', suffix = '' } = {}) {
   const start = performance.now();
   const ease = (t) => 1 - Math.pow(1 - t, 3); // easeOutCubic
   cancelAnimationFrame(el._raf);
   const step = (now) => {
     const p = Math.min((now - start) / duration, 1);
-    el.textContent = prefix + fmt(to * ease(p), decimals) + suffix;
+    el.textContent = prefix + fmt(from + (to - from) * ease(p), decimals) + suffix;
     if (p < 1) el._raf = requestAnimationFrame(step);
   };
   el._raf = requestAnimationFrame(step);
@@ -528,7 +528,7 @@ function efeitosInterativos() {
    DESAFIO 10 EM 10 — datas no horário de Brasília (UTC−3)
    ========================================================= */
 const DESAFIO = {
-  // Data de lançamento ainda não definida: o site mostra "Em breve" e a lista de espera.
+  // Sem data de turma: inscrições abertas, cada pessoa começa quando agenda a consulta inicial.
   // Quando houver data, troque null por algo como new Date('2026-11-16T00:00:00-03:00') para voltar o cronômetro.
   inicio: null
 };
@@ -536,12 +536,12 @@ const DESAFIO = {
 const dois = (n) => String(n).padStart(2, '0');
 
 function atualizarContagem() {
-  if (!DESAFIO.inicio) {  // modo "lançamento em breve"
+  if (!DESAFIO.inicio) {  // inscrições abertas, sem data de turma
     document.querySelectorAll('[data-countdown]').forEach((el) => el.classList.add('aberto'));
-    document.querySelectorAll('[data-countdown-label]').forEach((el) => { el.textContent = 'Lançamento em breve'; });
-    document.querySelectorAll('[data-countdown-nota]').forEach((el) => { el.textContent = 'Fique de olho no WhatsApp: eu aviso a data de início em primeira mão.'; });
-    document.querySelectorAll('[data-cd-pill]').forEach((el) => { el.textContent = 'Lançamento em breve · lista de espera aberta'; });
-    document.querySelectorAll('[data-cd-frase]').forEach((el) => { el.textContent = 'lançamento em breve'; });
+    document.querySelectorAll('[data-countdown-label]').forEach((el) => { el.textContent = 'Inscrições abertas'; });
+    document.querySelectorAll('[data-countdown-nota]').forEach((el) => { el.textContent = 'Agende sua consulta inicial: suas 10 semanas começam a partir do seu início.'; });
+    document.querySelectorAll('[data-cd-pill]').forEach((el) => { el.textContent = 'Inscrições abertas · entre agora'; });
+    document.querySelectorAll('[data-cd-frase]').forEach((el) => { el.textContent = 'inscrições abertas'; });
     document.querySelectorAll('[data-countdown-curto]').forEach((el) => { el.textContent = ''; el.hidden = true; });
     return;
   }
@@ -579,7 +579,24 @@ function atualizarContagem() {
   });
 }
 
+// Black Friday: de 11/11 a 12/12 (horário de Brasília); depois disso os avisos somem sozinhos
+const BLACK_FRIDAY_FIM = new Date('2026-12-13T00:00:00-03:00');
+
 function initDesafio() {
+  if (Date.now() >= BLACK_FRIDAY_FIM) document.querySelectorAll('[data-black-friday]').forEach((el) => el.remove());
+
+  // Preço da Black Friday: o número desce de 259 até 179 quando aparece na tela
+  const preco = $('[data-bf-preco]');
+  if (preco) {
+    new IntersectionObserver(([e], obs) => {
+      if (!e.isIntersecting) return;
+      obs.disconnect();
+      setTimeout(() => {
+        countUp(preco, 179, { from: 259, duration: 2200 });
+        setTimeout(() => preco.closest('.bf-precos').classList.add('chegou'), 2200);
+      }, 400);
+    }, { threshold: 0.6 }).observe(preco);
+  }
   // Botões de pagamento apontam para o checkout configurado acima
   document.querySelectorAll('[data-checkout]').forEach((a) => { if (PROFISSIONAL.checkoutDesafio) a.href = PROFISSIONAL.checkoutDesafio; });
 
@@ -610,82 +627,6 @@ function initDesafio() {
   }
 }
 
-/* =========================================================
-   LISTA DE ESPERA — formulário que salva numa planilha do Google
-   ========================================================= */
-const LISTA = {
-  planilhaUrl: 'https://script.google.com/macros/s/AKfycbyQwLFFaT4Yo5NS0njkUMF8d1rBUBkXMobY-_yqS2XhjShSOfPitHd-3TeSUFZrlKh-8Q/exec',   // endereço do Apps Script publicado (vazio = modo de teste, nada é salvo)
-  grupoUrl: 'https://whatsapp.com/channel/0029Vb9XKUWDeON7tvNFcE0b'   // canal de avisos no WhatsApp (vazio = botão escondido)
-};
-
-const mascaraWhats = (v) => {
-  const d = v.replace(/\D/g, '').slice(0, 11);
-  if (d.length <= 2) return d.length ? `(${d}` : '';
-  if (d.length <= 6) return `(${d.slice(0, 2)}) ${d.slice(2)}`;
-  if (d.length <= 10) return `(${d.slice(0, 2)}) ${d.slice(2, 6)}-${d.slice(6)}`;
-  return `(${d.slice(0, 2)}) ${d.slice(2, 7)}-${d.slice(7)}`;
-};
-
-function initListaEspera() {
-  const modal = $('#listaEspera');
-  if (!modal) return;
-  const form = $('#listaForm'), erro = $('#listaErro');
-  let origem = 'site';
-
-  const abrir = (de) => {
-    origem = de || 'site';
-    if (!modal.open) modal.showModal();
-    if (!form.hidden) setTimeout(() => $('#lNome').focus(), 50);
-  };
-  document.querySelectorAll('[data-lista]').forEach((a) => a.addEventListener('click', (e) => {
-    e.preventDefault();
-    abrir(a.textContent.trim().slice(0, 60));
-  }));
-  modal.querySelector('[data-lista-fechar]').addEventListener('click', () => modal.close());
-  modal.addEventListener('click', (e) => { if (e.target === modal) modal.close(); });   // clique fora da janela
-  modal.addEventListener('close', () => { if (location.hash === '#lista') history.replaceState(null, '', location.pathname + location.search); });
-  if (location.hash === '#lista') abrir('link #lista');
-
-  const grupo = modal.querySelector('[data-lista-grupo]');
-  if (LISTA.grupoUrl) grupo.href = LISTA.grupoUrl;
-  else if (LISTA.planilhaUrl) grupo.hidden = true;   // no modo de teste o botão aparece só para ver o visual
-
-  $('#lWhats').addEventListener('input', (e) => { e.target.value = mascaraWhats(e.target.value); });
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const d = Object.fromEntries(new FormData(form));
-    if (d.site) return;   // campo invisível preenchido = robô
-    const digitos = d.whatsapp.replace(/\D/g, '');
-    erro.textContent =
-      d.nome.trim().length < 2 ? 'Digite o seu nome.' :
-      digitos.length < 10 ? 'Confira o seu WhatsApp, com DDD.' :
-      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email.trim()) ? 'Confira o seu e-mail.' :
-      !d.aceite ? 'Marque a autorização para eu poder te avisar.' : '';
-    if (erro.textContent) return;
-
-    const btn = form.querySelector('[type=submit]');
-    btn.disabled = true; btn.textContent = 'Enviando...';
-    try {
-      if (LISTA.planilhaUrl) {
-        // no-cors: o Google não devolve resposta legível, mas recebe os dados
-        await fetch(LISTA.planilhaUrl, { method: 'POST', mode: 'no-cors', body: new URLSearchParams({
-          nome: d.nome.trim(), whatsapp: d.whatsapp, email: d.email.trim(),
-          dificuldade: (d.dificuldade || '').trim(), origem, pagina: location.pathname
-        }) });
-      }
-      modal.querySelector('[data-lista-nome]').textContent = d.nome.trim().split(' ')[0];
-      modal.querySelector('[data-lista-teste]').hidden = !!(LISTA.planilhaUrl && LISTA.grupoUrl);
-      form.hidden = true;
-      $('#listaOk').hidden = false;
-    } catch {
-      erro.textContent = 'Não consegui enviar agora. Verifique sua internet e tente de novo.';
-    } finally {
-      btn.disabled = false; btn.textContent = 'Quero entrar na lista';
-    }
-  });
-}
-
 // Ao abrir os arquivos direto do computador, links de pasta ("calculadora/") precisam do index.html
 function ajustarLinksLocais() {
   if (location.protocol !== 'file:') return;
@@ -711,7 +652,6 @@ document.addEventListener('DOMContentLoaded', () => {
   ajustarLinksLocais();
   aplicarDadosProfissional();
   initDesafio();
-  initListaEspera();
   efeitosInterativos();
   if (!$('#faList')) return; // páginas sem a calculadora
 
