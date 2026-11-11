@@ -228,7 +228,7 @@ function countUp(el, to, { from = 0, duration = 1600, decimals = 0, prefix = '',
   const ease = (t) => 1 - Math.pow(1 - t, 3); // easeOutCubic
   cancelAnimationFrame(el._raf);
   const step = (now) => {
-    const p = Math.min((now - start) / duration, 1);
+    const p = Math.min(Math.max((now - start) / duration, 0), 1);   // o 1º quadro pode vir com horário anterior ao início
     el.textContent = prefix + fmt(from + (to - from) * ease(p), decimals) + suffix;
     if (p < 1) el._raf = requestAnimationFrame(step);
   };
@@ -579,13 +579,13 @@ function atualizarContagem() {
   });
 }
 
-// Black Friday: de 11/11 a 12/12 (horário de Brasília); depois disso os avisos somem sozinhos
+// Condição especial: de 11/11 a 12/12 (horário de Brasília); depois disso os avisos somem sozinhos
 const BLACK_FRIDAY_FIM = new Date('2026-12-13T00:00:00-03:00');
 
 function initDesafio() {
   if (Date.now() >= BLACK_FRIDAY_FIM) document.querySelectorAll('[data-black-friday]').forEach((el) => el.remove());
 
-  // Preço da Black Friday: o número desce de 259 até 179 quando aparece na tela
+  // Preço da condição especial: o número desce de 259 até 179 quando aparece na tela
   const preco = $('[data-bf-preco]');
   if (preco) {
     new IntersectionObserver(([e], obs) => {

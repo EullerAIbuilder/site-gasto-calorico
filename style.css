@@ -944,7 +944,7 @@ body { overflow-x: clip; }
   .hero-inicio .sobre-texto h1 { margin-top: 14px; }
 }
 
-/* ============ BLACK FRIDAY ============ */
+/* ============ CONDIÇÃO ESPECIAL ============ */
 .bf-card {
   display: grid; grid-template-columns: auto 1fr auto; gap: 28px; align-items: center;
   padding: 26px 32px; border-radius: var(--radius); color: var(--white);
