@@ -469,6 +469,13 @@ function aplicarDadosProfissional() {
 }
 
 function efeitosInterativos() {
+  // Setas do carrossel do YouTube (anda um episódio por vez)
+  const ytCar = $('#ytCarrossel');
+  if (ytCar) document.querySelectorAll('[data-yt]').forEach((b) => b.addEventListener('click', () => {
+    const passo = (ytCar.querySelector('.yt-ep')?.offsetWidth || 340) + 20;
+    ytCar.scrollBy({ left: passo * Number(b.dataset.yt) });
+  }));
+
   // Cartão do profissional e foto com inclinação 3D
   document.querySelectorAll('#proCard, #fotoMoldura').forEach((card) => {
     card.addEventListener('mousemove', (e) => {
@@ -647,14 +654,20 @@ function limparEndereco() {
   history.replaceState(null, '', url.pathname + url.search + url.hash);
 }
 
-// Luz suave que segue o mouse, com um pequeno atraso (só em computador)
+// Luz suave que segue o mouse, com um pequeno atraso (só em computador).
+// Ela só acende em cima dos quadros interativos; o quadro do Instagram fica de fora (pedido do Euller).
+const QUADROS_COM_LUZ = '.pilar, .passos li, .pro-card, #proCard, #fotoMoldura, .r-card, .fa-item, .rede-card, .timeline li';
 function luzDoCursor() {
   if (!matchMedia('(hover: hover) and (pointer: fine)').matches || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const luz = document.createElement('div');
   luz.className = 'luz-cursor';
   document.body.appendChild(luz);
   let x = innerWidth / 2, y = innerHeight / 2, lx = x, ly = y;
-  addEventListener('mousemove', (e) => { x = e.clientX; y = e.clientY; luz.classList.add('ativa'); }, { passive: true });
+  addEventListener('mousemove', (e) => {
+    x = e.clientX; y = e.clientY;
+    const emQuadro = e.target instanceof Element && e.target.closest(QUADROS_COM_LUZ) && !e.target.closest('.ig-card');
+    luz.classList.toggle('ativa', !!emQuadro);
+  }, { passive: true });
   document.addEventListener('mouseleave', () => luz.classList.remove('ativa'));
   const mover = () => {
     lx += (x - lx) * 0.18; ly += (y - ly) * 0.18;

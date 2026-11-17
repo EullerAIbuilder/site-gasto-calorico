@@ -1038,3 +1038,87 @@ body { overflow-x: clip; }
 }
 @media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) { .luz-cursor { display: none; } }
 .brand-mark { font-style: italic; }
+
+/* ============ INSTAGRAM: faixa escura com os Reels em leque ============ */
+.ig-faixa { position: relative; overflow: hidden; color: var(--white); padding: 90px 0;
+  background: radial-gradient(circle at 80% 40%, rgba(184,154,106,.22), transparent 45%), linear-gradient(160deg, #23271e, var(--green-900) 60%, var(--green-800)); }
+.ig-faixa .container { display: grid; grid-template-columns: .9fr 1.1fr; gap: 40px; align-items: center; }
+.ig-faixa .rotulo { color: var(--gold-light); }
+.ig-faixa h2 { font-size: clamp(2rem, 4vw, 3rem); margin: 12px 0 16px; color: var(--white); }
+.ig-faixa h2 em { color: var(--gold-light); }
+.ig-faixa p { color: #d8cfbb; max-width: 460px; margin-bottom: 26px; }
+.ig-btn { display: inline-flex; align-items: center; gap: 10px; }
+.ig-btn svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; }
+.ig-btn svg.ico-yt { width: 22px; height: 22px; fill: currentColor; stroke: none; }
+.ig-dest { display: flex; gap: 18px; margin-bottom: 30px; }
+.ig-dest a { display: flex; flex-direction: column; align-items: center; gap: 6px; text-decoration: none; font-size: .75rem; font-weight: 500; color: #e9dfc9; }
+.ig-dest-anel { width: 64px; height: 64px; border-radius: 50%; padding: 3px; background: conic-gradient(var(--gold), var(--gold-light), var(--green-600), var(--gold)); transition: transform .4s cubic-bezier(.16,1,.3,1); }
+.ig-dest a:hover .ig-dest-anel { transform: scale(1.08); }
+.ig-dest img { display: block; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 3px solid var(--green-900); }
+.leque { position: relative; height: 470px; margin-left: 60px; }
+.leque a { position: absolute; top: 40px; left: 55%; width: 185px; aspect-ratio: 3 / 4.6; border-radius: 22px; overflow: hidden;
+  box-shadow: 0 24px 50px rgba(0,0,0,.45); border: 3px solid rgba(217,196,155,.55);
+  transform-origin: 50% 120%; transition: transform .6s cubic-bezier(.16,1,.3,1); }
+.leque a img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.leque a::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(20,22,16,.65), transparent 45%); }
+.leque-play { position: absolute; z-index: 1; left: 14px; bottom: 14px; display: flex; align-items: center; gap: 6px; font-size: .78rem; font-weight: 600; color: #fff; }
+.leque-play svg { width: 16px; height: 16px; fill: currentColor; }
+.leque a:nth-child(1) { --x: -150%; --r: -16deg; z-index: 1; }
+.leque a:nth-child(2) { --x: -100%; --r: -8deg; z-index: 2; }
+.leque a:nth-child(3) { --x: -50%; --r: 0deg; --y: -14px; z-index: 3; }
+.leque a:nth-child(4) { --x: 0%; --r: 8deg; z-index: 2; }
+.leque a:nth-child(5) { --x: 50%; --r: 16deg; z-index: 1; }
+.leque a { transform: translateX(var(--x)) rotate(var(--r)) translateY(var(--y, 0px)); }
+.leque a:hover { z-index: 10; transform: translateX(var(--x)) rotate(0deg) translateY(-40px) scale(1.06); }
+
+/* ============ YOUTUBE: série em carrossel ============ */
+.yt { padding: 90px 0; background: var(--white); overflow: hidden; }
+.yt-cab { display: grid; grid-template-columns: auto 1fr auto; gap: 22px; align-items: center; margin-bottom: 30px; }
+.yt-av { width: 84px; height: 84px; border-radius: 50%; padding: 3px; background: conic-gradient(var(--gold), var(--gold-light), var(--green-600), var(--gold)); }
+.yt-av img { display: block; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 3px solid var(--white); }
+.yt h2 { font-size: clamp(1.8rem, 3.6vw, 2.6rem); color: var(--green-900); }
+.yt h2 em { color: var(--gold); }
+.yt-cab p { color: var(--gray-600); font-size: .92rem; margin-top: 4px; }
+.yt-setas { display: flex; gap: 10px; }
+.yt-setas button { width: 48px; height: 48px; border-radius: 50%; border: 1.5px solid var(--green-900); background: transparent; color: var(--green-900); font-size: 1.3rem; cursor: pointer; transition: background .3s, color .3s; }
+.yt-setas button:hover { background: var(--green-900); color: var(--gold-light); }
+.yt-carrossel { display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; padding: 6px 2px 24px; scrollbar-width: none; }
+.yt-carrossel::-webkit-scrollbar { display: none; }
+.yt-ep { flex: 0 0 340px; scroll-snap-align: start; border-radius: 22px; overflow: hidden; background: var(--gray-100); border: 1px solid var(--gray-300); text-decoration: none; color: var(--gray-900); transition: transform .5s cubic-bezier(.16,1,.3,1), box-shadow .5s; }
+.yt-ep:hover { transform: translateY(-6px); box-shadow: 0 24px 44px -20px rgba(47,52,41,.5); }
+.yt-capa { position: relative; display: block; overflow: hidden; }
+.yt-capa img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; transition: transform .7s cubic-bezier(.16,1,.3,1); }
+.yt-ep:hover .yt-capa img { transform: scale(1.05); }
+.yt-capa::after { content: ''; position: absolute; inset: 0; background: rgba(47,52,41,.35); opacity: 0; transition: opacity .3s; }
+.yt-ep:hover .yt-capa::after { opacity: 1; }
+.yt-play { position: absolute; z-index: 1; left: 50%; top: 50%; width: 58px; height: 58px; margin: -29px 0 0 -29px; border-radius: 50%; display: grid; place-items: center;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light)); color: var(--black); opacity: 0; transform: scale(.8); transition: opacity .3s, transform .4s; }
+.yt-play svg { width: 24px; height: 24px; fill: currentColor; margin-left: 3px; }
+.yt-ep:hover .yt-play { opacity: 1; transform: none; }
+.yt-info { display: block; padding: 16px 18px 20px; }
+.yt-num { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: .7rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; background: var(--green-900); color: var(--gold-light); }
+.yt-info strong { display: block; font-size: .98rem; line-height: 1.35; margin-top: 10px; }
+.yt-info small { display: block; font-size: .8rem; color: var(--gray-600); margin-top: 6px; }
+.yt-rodape { display: flex; justify-content: center; margin-top: 18px; }
+
+@media (prefers-reduced-motion: reduce) { .leque a, .yt-ep, .yt-capa img { transition: none; } }
+@media (max-width: 900px) {
+  .ig-faixa .container { grid-template-columns: 1fr; text-align: center; }
+  .ig-faixa p { margin-inline: auto; }
+  .ig-dest { justify-content: center; }
+  .leque { height: 380px; margin-left: 0; }
+  .leque a { width: 150px; }
+  .yt-cab { grid-template-columns: auto 1fr; }
+  .yt-setas { display: none; }
+}
+@media (max-width: 600px) {
+  .ig-faixa, .yt { padding: 60px 0; }
+  .leque { height: 330px; }
+  .leque a { width: 122px; border-radius: 16px; }
+  .leque a:nth-child(1) { --x: -125%; --r: -12deg; } .leque a:nth-child(2) { --x: -88%; --r: -6deg; }
+  .leque a:nth-child(4) { --x: -12%; --r: 6deg; } .leque a:nth-child(5) { --x: 25%; --r: 12deg; }
+  .ig-btn { width: 100%; justify-content: center; }
+  .yt-ep { flex-basis: 82%; }
+  .yt-av { width: 64px; height: 64px; }
+}
+.ig-faixa + .yt { margin-top: -22px; }   /* emenda com a faixa do Instagram (o main tem 22px entre seções) */
