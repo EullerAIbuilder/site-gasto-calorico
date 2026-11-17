@@ -380,10 +380,10 @@ function mostrarResultados(r) {
 
   // Barra empilhada
   const partes = [
-    ['Repouso', r.ger, '#1f9a5f'],
-    ['Atividade diária', r.atividade, '#7fc8a0'],
-    ['Exercícios', r.exercicio, '#c9a227'],
-    ['Efeito térmico', r.eta, '#f4f6f5']
+    ['Repouso', r.ger, '#8A9270'],
+    ['Atividade diária', r.atividade, '#C4CCA8'],
+    ['Exercícios', r.exercicio, '#B89A6A'],
+    ['Efeito térmico', r.eta, '#F4E8D2']
   ];
   const bar = $('#stackBar');
   bar.innerHTML = partes.map(([, , c]) => `<div style="background:${c}"></div>`).join('');
@@ -438,7 +438,7 @@ function mostrarResultados(r) {
     <div class="eq-name">${r.eq.nome}: ${fmt(r.ger)} kcal/dia</div>
     <div class="eq-formula">${r.eq.formula(r.d)}</div>
     <p>${r.escolha.motivo}</p>
-    <p style="margin-top:6px;font-size:.82rem;color:#5c6660">Faixa provável (±10%): ${fmt(r.ger * 0.9)} – ${fmt(r.ger * 1.1)} kcal/dia.</p>`;
+    <p style="margin-top:6px;font-size:.82rem;color:#6B6152">Faixa provável (±10%): ${fmt(r.ger * 0.9)} – ${fmt(r.ger * 1.1)} kcal/dia.</p>`;
 
   $('#eqTabela').innerHTML = Object.entries(EQUACOES).map(([k, e]) => {
     const v = e.calc(r.d);
@@ -647,8 +647,26 @@ function limparEndereco() {
   history.replaceState(null, '', url.pathname + url.search + url.hash);
 }
 
+// Luz suave que segue o mouse, com um pequeno atraso (só em computador)
+function luzDoCursor() {
+  if (!matchMedia('(hover: hover) and (pointer: fine)').matches || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const luz = document.createElement('div');
+  luz.className = 'luz-cursor';
+  document.body.appendChild(luz);
+  let x = innerWidth / 2, y = innerHeight / 2, lx = x, ly = y;
+  addEventListener('mousemove', (e) => { x = e.clientX; y = e.clientY; luz.classList.add('ativa'); }, { passive: true });
+  document.addEventListener('mouseleave', () => luz.classList.remove('ativa'));
+  const mover = () => {
+    lx += (x - lx) * 0.18; ly += (y - ly) * 0.18;
+    luz.style.transform = `translate3d(${lx}px, ${ly}px, 0)`;
+    requestAnimationFrame(mover);
+  };
+  mover();
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   limparEndereco();
+  luzDoCursor();
   ajustarLinksLocais();
   aplicarDadosProfissional();
   initDesafio();
