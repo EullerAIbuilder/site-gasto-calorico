@@ -727,7 +727,7 @@ input:focus, select:focus { outline: none; border-color: var(--green-500); box-s
 }
 
 /* Ajustes: altura das linhas do título e largura no celular */
-body { overflow-x: clip; }
+body { overflow-x: hidden; overflow-x: clip; }   /* hidden = reserva para navegadores antigos (ex.: navegador interno do Instagram) */
 .t-desafio, .t-legenda { line-height: 1.2; }
 .t-numeros { line-height: .95; margin: 14px 0 10px; }
 .t-numeros em { line-height: 1; }
@@ -1122,3 +1122,14 @@ body { overflow-x: clip; }
   .yt-av { width: 64px; height: 64px; }
 }
 .ig-faixa + .yt { margin-top: -22px; }   /* emenda com a faixa do Instagram (o main tem 22px entre seções) */
+
+/* Leque do Instagram centralizado no celular e no tablet, sem cartas cortadas nas bordas */
+@media (max-width: 900px) {
+  .leque { --c: 150px; height: calc(var(--c) * 1.53 + 90px); width: 100%; max-width: 520px; margin-inline: auto; }
+  .leque a { left: 50%; width: var(--c); }
+}
+@media (max-width: 600px) {
+  .leque { --c: min(122px, 28vw); height: calc(var(--c) * 1.53 + 70px); }
+  .leque a { top: 34px; }
+}
+@media (max-width: 380px) { .leque-play { white-space: nowrap; font-size: .68rem; left: 10px; bottom: 10px; } }
