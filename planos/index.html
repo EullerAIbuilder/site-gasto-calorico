@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- RASCUNHO: página de planos ainda em aprovação (fora do Google e fora do menu) -->
+  <meta name="robots" content="noindex, nofollow">
+  <title>Planos | Euller Augusto · Nutricionista</title>
+  <meta name="description" content="Planos de acompanhamento nutricional on-line com Euller Augusto (CRN-3 92786): consulta avulsa, mensal, trimestral e semestral, com o app 10 em 10 nos planos maiores.">
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+  <meta name="theme-color" content="#2F3429">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,500;1,600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    /* ============ PLANOS (página própria) · prefixo pl- para não misturar com o resto do site ============ */
+    .pl-main { margin-top: 0; gap: 0; padding-bottom: 40px; }
+    .pl { background: radial-gradient(circle at 80% 0%, rgba(184,154,106,.22), transparent 45%), linear-gradient(165deg, #1d2018, var(--green-900) 55%, var(--green-700)); color: var(--white); padding: 56px 0 80px; }
+    .pl-topo { text-align: center; max-width: 760px; margin: 0 auto; }
+    .pl-topo .pill { margin-bottom: 14px; }
+    .pl-topo h1 { font-size: clamp(2rem, 4.4vw, 3.1rem); color: var(--white); }
+    .pl-topo h1 em { color: var(--gold-light); font-style: italic; }
+    .pl-topo p { color: #d8cfbb; margin-top: 12px; }
+
+    /* seletor de tempo: uma "régua" com 4 paradas */
+    .pl-regua { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); max-width: 860px; margin: 40px auto 0; padding: 6px; border-radius: 999px; background: rgba(251,246,236,.06); border: 1px solid rgba(217,196,155,.25); }
+    .pl-regua button { position: relative; z-index: 1; border: 0; background: none; color: #d8cfbb; font: 600 .95rem 'Poppins', sans-serif; padding: 14px 8px; border-radius: 999px; cursor: pointer; transition: color .35s; }
+    .pl-regua button small { display: block; font-weight: 400; font-size: .74rem; opacity: .8; }
+    .pl-regua button.on { color: #1d2018; }
+    .pl-regua .pl-bola { position: absolute; top: 6px; bottom: 6px; left: 6px; width: calc((100% - 12px) / 4); border-radius: 999px; background: linear-gradient(135deg, var(--gold), var(--gold-light)); box-shadow: 0 8px 24px rgba(184,154,106,.4); transition: transform .55s cubic-bezier(.2,.8,.2,1); }
+    .pl-regua .pl-app-tag { position: absolute; top: -12px; right: calc(25% - 34px); z-index: 2; background: var(--green-500); color: #fff; font-size: .66rem; font-weight: 700; letter-spacing: .08em; padding: 3px 10px; border-radius: 999px; text-transform: uppercase; }
+
+    /* painel do plano escolhido + celular */
+    .pl-palco { display: grid; grid-template-columns: 1.15fr .85fr; gap: 40px; align-items: center; max-width: 1060px; margin: 44px auto 0; }
+    .pl-painel { position: relative; padding: 34px 36px; border-radius: 30px; background: #1d2018; isolation: isolate; }
+    /* borda dourada que gira (a moldura que o Euller aprovou) */
+    .pl-painel::before { content: ''; position: absolute; inset: -2px; z-index: -2; border-radius: 32px; background: conic-gradient(from var(--giro, 0deg), var(--gold), transparent 30%, var(--gold-light) 50%, transparent 75%, var(--gold)); animation: pl-gira 6s linear infinite; }
+    .pl-painel::after { content: ''; position: absolute; inset: 0; z-index: -1; border-radius: 30px; background: #1d2018; }
+    @property --giro { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+    @keyframes pl-gira { to { --giro: 360deg; } }
+    .pl-nome { font-family: 'Playfair Display', serif; font-size: 1.9rem; color: var(--white); }
+    .pl-tempo { color: var(--gold-light); font-weight: 500; margin-top: 2px; }
+    .pl-preco { display: flex; align-items: baseline; gap: 8px; margin: 18px 0 2px; }
+    .pl-preco span { font-size: 1.1rem; color: var(--gold-light); font-weight: 600; }
+    .pl-preco strong { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 7vw, 4.2rem); line-height: 1; background-image: linear-gradient(180deg, #fff3c4, #e6c65c 40%, #c9a227 75%, #8a6d12); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .pl-mes { color: #bdb39c; font-size: .9rem; min-height: 1.4em; }
+    .pl-lista { list-style: none; margin: 22px 0 24px; padding-top: 20px; border-top: 1px solid rgba(217,196,155,.2); display: flex; flex-direction: column; gap: 11px; }
+    .pl-lista li { display: flex; gap: 12px; align-items: flex-start; font-size: .96rem; color: #efe6d2; transition: opacity .4s, color .4s; }
+    .pl-lista li svg { flex-shrink: 0; width: 20px; height: 20px; fill: none; stroke: var(--gold-light); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; margin-top: 1px; }
+    .pl-lista li.fora { opacity: .38; text-decoration: line-through; text-decoration-color: rgba(217,196,155,.5); }
+    .pl-lista li.fora svg { stroke: #8a8370; }
+    .pl-lista li.app b { color: #8fd19e; }
+    .pl-botoes { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+    .pl-frase { font-family: 'Playfair Display', serif; font-style: italic; color: #d8cfbb; margin-top: 16px; font-size: 1rem; }
+
+    /* celular com o app 10 em 10: apagado até o trimestral, aceso no trimestral e no semestral */
+    .pl-cel-area { position: relative; display: grid; place-items: center; }
+    .pl-cel { position: relative; width: 250px; height: 500px; border-radius: 42px; padding: 12px; background: #0c0d0a; box-shadow: 0 30px 60px rgba(0,0,0,.5), 0 0 0 2px #3b4133; transition: filter .6s, transform .6s, box-shadow .6s; }
+    .pl-cel.desligado { filter: grayscale(1) brightness(.45); transform: scale(.94); }
+    .pl-cel.ligado { box-shadow: 0 30px 60px rgba(0,0,0,.5), 0 0 0 2px var(--gold), 0 0 50px rgba(184,154,106,.45); animation: pl-pulsa 2.6s ease-in-out infinite; }
+    @keyframes pl-pulsa { 50% { box-shadow: 0 30px 60px rgba(0,0,0,.5), 0 0 0 2px var(--gold-light), 0 0 70px rgba(217,196,155,.6); } }
+    .pl-tela { height: 100%; border-radius: 32px; overflow: hidden; background: #0f110d; padding: 30px 16px 16px; display: flex; flex-direction: column; gap: 10px; font-size: .72rem; }
+    .pl-tela .t-topo { display: flex; justify-content: space-between; align-items: center; color: var(--gold-light); font-weight: 700; font-size: .85rem; font-family: 'Playfair Display', serif; }
+    .pl-tela .t-topo small { font-family: 'Poppins'; font-weight: 400; color: #9c9682; font-size: .62rem; }
+    .pl-anel { display: flex; gap: 12px; align-items: center; padding: 12px; border-radius: 16px; background: #1b1e17; }
+    .pl-anel svg { width: 58px; height: 58px; transform: rotate(-90deg); }
+    .pl-anel b { display: block; color: #fff; font-size: .95rem; }
+    .pl-anel span { color: #9c9682; }
+    .pl-barras { padding: 12px; border-radius: 16px; background: #1b1e17; color: #9c9682; }
+    .pl-barras div { display: flex; align-items: flex-end; gap: 6px; height: 56px; margin-top: 8px; }
+    .pl-barras i { flex: 1; border-radius: 4px 4px 2px 2px; background: #4caf6a; }
+    .pl-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; border-radius: 12px; background: #1b1e17; color: #e9e2cf; }
+    .pl-item em { font-style: normal; color: #8fd19e; font-weight: 600; }
+    .pl-nav { margin-top: auto; display: flex; justify-content: space-around; padding-top: 8px; border-top: 1px solid #262a20; color: #9c9682; font-size: .6rem; }
+    .pl-nav span.on { color: var(--gold-light); }
+    .pl-cadeado { position: absolute; z-index: 3; display: grid; place-items: center; gap: 6px; text-align: center; width: 190px; padding: 16px; border-radius: 20px; background: rgba(29,32,24,.92); border: 1px solid rgba(217,196,155,.35); color: #efe6d2; font-size: .85rem; transition: opacity .5s, transform .5s; }
+    .pl-cadeado svg { width: 28px; height: 28px; fill: none; stroke: var(--gold-light); stroke-width: 1.8; stroke-linecap: round; }
+    .pl-cadeado b { color: var(--gold-light); }
+    .pl-cadeado.some { opacity: 0; transform: scale(.85); pointer-events: none; }
+    .pl-cel-legenda { margin-top: 16px; color: #bdb39c; font-size: .82rem; text-align: center; max-width: 280px; }
+
+    /* tabela comparativa (fundo claro, depois do bloco escuro) */
+    .pl-compara { padding: 70px 0 20px; }
+    .pl-compara h2 { text-align: center; font-size: clamp(1.6rem, 3vw, 2.2rem); }
+    .pl-compara h2 em { color: var(--gold); font-style: italic; }
+    .pl-tabela-wrap { overflow-x: auto; margin-top: 26px; border-radius: 24px; box-shadow: var(--shadow); }
+    .pl-tabela { width: 100%; min-width: 700px; border-collapse: collapse; background: #fff; font-size: .93rem; }
+    .pl-tabela th, .pl-tabela td { padding: 14px 16px; text-align: center; border-bottom: 1px solid var(--gray-300); }
+    .pl-tabela th:first-child, .pl-tabela td:first-child { text-align: left; color: var(--gray-600); }
+    .pl-tabela thead th { background: var(--green-900); color: var(--white); font-family: 'Playfair Display', serif; font-size: 1.05rem; }
+    .pl-tabela thead th small { display: block; font-family: 'Poppins'; font-size: .8rem; color: var(--gold-light); font-weight: 500; }
+    .pl-tabela .col-app { background: rgba(184,154,106,.1); }
+    .pl-tabela thead .col-app { background: var(--green-800); }
+    .pl-tabela .sim { color: var(--green-600); font-weight: 700; }
+    .pl-tabela .nao { color: #c2b69c; }
+    .pl-tabela tr.linha-app td { font-weight: 600; }
+    .pl-obs { text-align: center; color: var(--gray-600); font-size: .85rem; margin-top: 16px; }
+
+    @media (max-width: 900px) {
+      .pl-palco { grid-template-columns: 1fr; }
+      .pl-cel-area { order: -1; }
+      .pl-cel { width: 210px; height: 420px; }
+    }
+    @media (max-width: 600px) {
+      .pl { padding: 36px 0 60px; }
+      .pl-regua { border-radius: 22px; }
+      .pl-regua button { padding: 12px 4px; font-size: .82rem; }
+      .pl-regua .pl-bola { border-radius: 18px; }
+      .pl-painel { padding: 26px 22px; }
+      .pl-botoes .btn { width: 100%; justify-content: center; }
+      .pl-tabela { min-width: 540px; font-size: .82rem; }
+      .pl-tabela th, .pl-tabela td { padding: 11px 8px; }
+      .pl-tabela th:first-child, .pl-tabela td:first-child { width: 34%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== CABEÇALHO ===== -->
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a href="../desafio10em10/" class="brand">
+        <span class="brand-mark">EA</span>
+        <span class="brand-text">
+          <strong data-pro="nome">Euller Augusto</strong>
+          <small>Nutricionista</small>
+        </span>
+      </a>
+      <nav class="nav">
+        <a href="../desafio10em10/" class="nav-desafio">Desafio 10 em 10</a>
+        <a href="../sobre/">O Euller</a>
+        <a href="./" class="active">Planos</a>
+        <a href="../calculadora/">Calculadora</a>
+        <a href="../desafio10em10/#agendar" class="nav-cta">Agendar consulta</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="pl-main">
+    <section class="pl">
+      <div class="container">
+        <div class="pl-topo" data-reveal>
+          <span class="pill">Planos de acompanhamento · on-line</span>
+          <h1>Quanto tempo você quer ter <em>alguém do seu lado</em>?</h1>
+          <p>Emagrecer de verdade é feito de ajustes ao longo do caminho. Escolha o tempo do seu acompanhamento: quanto mais longo, mais retornos, mais ajustes e, a partir do trimestral, o <strong>app 10 em 10</strong> no seu celular.</p>
+        </div>
+
+        <div class="pl-regua" role="tablist" aria-label="Escolha o tempo do plano">
+          <span class="pl-bola" id="plBola"></span>
+          <span class="pl-app-tag">com app</span>
+          <button role="tab" data-p="0">Avulsa<small>1 consulta</small></button>
+          <button role="tab" data-p="1">Mensal<small>1 mês</small></button>
+          <button role="tab" data-p="2">Trimestral<small>3 meses</small></button>
+          <button role="tab" data-p="3">Semestral<small>6 meses</small></button>
+        </div>
+
+        <div class="pl-palco">
+          <div class="pl-painel" aria-live="polite">
+            <div class="pl-nome" id="plNome">Trimestral</div>
+            <div class="pl-tempo" id="plTempo"></div>
+            <div class="pl-preco"><span>R$</span><strong id="plPreco">0</strong></div>
+            <div class="pl-mes" id="plMes"></div>
+            <ul class="pl-lista" id="plLista"></ul>
+            <div class="pl-botoes">
+              <a id="plBotao" class="btn btn-gold btn-pulse" target="_blank" rel="noopener" href="#">Quero este plano</a>
+              <a href="../desafio10em10/#agendar" class="btn btn-outline">Ver horários</a>
+            </div>
+            <p class="pl-frase" id="plFrase"></p>
+          </div>
+
+          <div class="pl-cel-area">
+            <div class="pl-cel desligado" id="plCel" aria-hidden="true">
+              <div class="pl-tela">
+                <div class="t-topo">10 em 10 <small>Olá, Ana</small></div>
+                <div class="pl-anel">
+                  <svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="15" fill="none" stroke="#2b3024" stroke-width="4"/><circle cx="18" cy="18" r="15" fill="none" stroke="#e6c65c" stroke-width="4" stroke-linecap="round" stroke-dasharray="94.2" stroke-dashoffset="16"/></svg>
+                  <div><b>Adesão da semana</b><span>plano alimentar</span></div>
+                </div>
+                <div class="pl-barras">Evolução das semanas
+                  <div><i style="height:40%"></i><i style="height:55%"></i><i style="height:50%"></i><i style="height:70%"></i><i style="height:78%"></i><i style="height:85%"></i></div>
+                </div>
+                <div class="pl-item">Plano de hoje <em>5 refeições</em></div>
+                <div class="pl-item">Treino A · Inferiores <em>✓</em></div>
+                <div class="pl-item">Lembrete · beber água <em>15h</em></div>
+                <div class="pl-nav"><span class="on">Início</span><span>Dieta</span><span>Evolução</span><span>Treinos</span></div>
+              </div>
+            </div>
+            <div class="pl-cadeado" id="plCadeado">
+              <svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+              <span>O <b>app 10 em 10</b> vem a partir do plano <b>trimestral</b></span>
+            </div>
+            <p class="pl-cel-legenda">App 10 em 10: plano alimentar no celular, evolução, treinos e lembretes. <em>Imagem ilustrativa.</em></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== COMPARAR LADO A LADO ===== -->
+    <section class="container pl-compara">
+      <h2 data-reveal>Compare <em>lado a lado</em></h2>
+      <div class="pl-tabela-wrap" data-reveal>
+        <table class="pl-tabela">
+          <thead>
+            <tr><th></th><th>Avulsa<small>R$ 189</small></th><th>Mensal<small>R$ 329</small></th><th class="col-app">Trimestral<small>R$ 549</small></th><th class="col-app">Semestral<small>R$ 949</small></th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Consultas (inicial + retornos)</td><td>1</td><td>2</td><td class="col-app">3</td><td class="col-app">6</td></tr>
+            <tr><td>Plano alimentar individualizado</td><td class="sim">✓</td><td class="sim">✓</td><td class="col-app sim">✓</td><td class="col-app sim">✓</td></tr>
+            <tr><td>Ajustes do plano nos retornos</td><td class="nao">—</td><td class="sim">✓</td><td class="col-app sim">✓</td><td class="col-app sim">✓</td></tr>
+            <tr><td>WhatsApp direto comigo</td><td class="nao">—</td><td>1 mês</td><td class="col-app">3 meses</td><td class="col-app">6 meses</td></tr>
+            <tr class="linha-app"><td>App 10 em 10 (dieta, evolução, treinos, lembretes)</td><td class="nao">—</td><td class="nao">—</td><td class="col-app sim">✓</td><td class="col-app sim">✓</td></tr>
+            <tr><td>Equivale por mês</td><td>—</td><td>R$ 329</td><td class="col-app">R$ 183</td><td class="col-app">R$ 158</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="pl-obs">Atendimento on-line por vídeo. As formas de pagamento eu passo pelo WhatsApp.</p>
+    </section>
+  </main>
+
+  <footer class="footer" id="contato">
+    <div class="footer-bottom">
+      <p>© <span id="ano"></span> <span data-pro="nomeCompleto">Euller Augusto Gonçalves Targino e Silva</span> · Nutricionista<span class="crn-wrap"> – <span data-pro="crn"></span></span></p>
+    </div>
+  </footer>
+
+  <script src="../script.js"></script>
+  <script>
+    // Planos: tudo num lugar só (trocar preço = trocar aqui)
+    const CHK = '<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+    const ITENS = ['Consulta completa e plano alimentar individualizado', 'Retornos com ajustes no plano', 'WhatsApp direto comigo', '<b>App 10 em 10</b> no seu celular', 'Materiais de apoio e calculadora de gasto calórico'];
+    const PLANOS = [
+      { nome: 'Consulta avulsa', tempo: '1 consulta', preco: 189, mes: '', tem: [1, 0, 0, 0, 1], extra: ['', '', '', '', ''], frase: 'Para uma orientação pontual ou para começar.', msg: 'a consulta avulsa' },
+      { nome: 'Mensal', tempo: '1 mês · consulta + 1 retorno', preco: 329, mes: '', tem: [1, 1, 1, 0, 1], extra: ['', ' (1 retorno)', ' durante o mês', '', ''], frase: 'O primeiro mês, com um ajuste no meio do caminho.', msg: 'o plano mensal' },
+      { nome: 'Trimestral', tempo: '3 meses · consulta + 2 retornos', preco: 549, mes: 'equivale a R$ 183 por mês', tem: [1, 1, 1, 1, 1], extra: ['', ' (2 retornos)', ' nos 3 meses', ' durante os 3 meses', ''], frase: 'Tempo para o hábito virar rotina, com o app do seu lado.', msg: 'o plano trimestral' },
+      { nome: 'Semestral', tempo: '6 meses · consulta + 5 retornos', preco: 949, mes: 'equivale a R$ 158 por mês', tem: [1, 1, 1, 1, 1], extra: ['', ' (5 retornos)', ' nos 6 meses', ' durante os 6 meses', ''], frase: 'Para emagrecer e manter: o menor valor por mês.', msg: 'o plano semestral' },
+    ];
+    const $p = (id) => document.getElementById(id);
+    const botoes = document.querySelectorAll('.pl-regua button');
+    let precoAtual = 0, anima;
+
+    // número que sobe/desce até o valor (passo a passo com setTimeout: funciona mesmo com animações do Windows desligadas)
+    function animarPreco(alvo) {
+      clearTimeout(anima);
+      const ini = precoAtual, t0 = Date.now(), dur = 700;
+      (function passo() {
+        const k = Math.min(1, (Date.now() - t0) / dur), e = 1 - Math.pow(1 - k, 3);
+        precoAtual = Math.round(ini + (alvo - ini) * e);
+        $p('plPreco').textContent = precoAtual.toLocaleString('pt-BR');
+        if (k < 1) anima = setTimeout(passo, 16);
+      })();
+    }
+
+    function escolher(i) {
+      const p = PLANOS[i];
+      botoes.forEach((b, j) => { b.classList.toggle('on', j === i); b.setAttribute('aria-selected', j === i); });
+      $p('plBola').style.transform = `translateX(${i * 100}%)`;
+      $p('plNome').textContent = p.nome;
+      $p('plTempo').textContent = p.tempo;
+      $p('plMes').textContent = p.mes;
+      $p('plFrase').textContent = p.frase;
+      $p('plLista').innerHTML = ITENS.map((t, j) => `<li class="${p.tem[j] ? '' : 'fora'} ${j === 3 ? 'app' : ''}">${CHK}<span>${t}${p.extra[j]}</span></li>`).join('');
+      const app = p.tem[3] === 1;
+      $p('plCel').className = 'pl-cel ' + (app ? 'ligado' : 'desligado');
+      $p('plCadeado').classList.toggle('some', app);
+      const base = (typeof PROFISSIONAL !== 'undefined' && PROFISSIONAL.whatsappUrl) || 'https://wa.me/5511971972977';
+      $p('plBotao').href = `${base}?text=${encodeURIComponent(`Olá, Euller! Vim pelo site e tenho interesse n${p.msg}.`)}`;
+      animarPreco(p.preco);
+    }
+    botoes.forEach((b, i) => b.addEventListener('click', () => escolher(i)));
+    escolher(2);   // abre no trimestral (o primeiro com o app)
+    const ano = document.getElementById('ano'); if (ano) ano.textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
