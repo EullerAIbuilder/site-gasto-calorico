@@ -1,18 +1,23 @@
 {
   "redirects": [
     {
-      "source": "/",
-      "destination": "/desafio10em10",
+      "source": "/desafio10em10",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/desafio10em10/",
+      "destination": "/",
       "permanent": false
     },
     {
       "source": "/desafio10em10/inscricao",
-      "destination": "/desafio10em10",
+      "destination": "/",
       "permanent": false
     },
     {
       "source": "/desafio10em10/inscricao/",
-      "destination": "/desafio10em10",
+      "destination": "/",
       "permanent": false
     },
     {
