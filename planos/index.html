@@ -24,12 +24,15 @@
     .pl-topo p { color: #d8cfbb; margin-top: 12px; }
 
     /* seletor de tempo: uma "régua" com 4 paradas */
-    .pl-regua { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); max-width: 860px; margin: 40px auto 0; padding: 6px; border-radius: 999px; background: rgba(251,246,236,.06); border: 1px solid rgba(217,196,155,.25); }
+    .pl-regua { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); max-width: 860px; margin: 68px auto 0; padding: 6px; border-radius: 999px; background: rgba(251,246,236,.06); border: 1px solid rgba(217,196,155,.25); }
     .pl-regua button { position: relative; z-index: 1; border: 0; background: none; color: #d8cfbb; font: 600 .95rem 'Poppins', sans-serif; padding: 14px 8px; border-radius: 999px; cursor: pointer; transition: color .35s; }
     .pl-regua button small { display: block; font-weight: 400; font-size: .74rem; opacity: .8; }
     .pl-regua button.on { color: #1d2018; }
     .pl-regua .pl-bola { position: absolute; top: 6px; bottom: 6px; left: 6px; width: calc((100% - 12px) / 4); border-radius: 999px; background: linear-gradient(135deg, var(--gold), var(--gold-light)); box-shadow: 0 8px 24px rgba(184,154,106,.4); transition: transform .55s cubic-bezier(.2,.8,.2,1); }
-    .pl-regua .pl-app-tag { position: absolute; top: -12px; right: calc(25% - 34px); z-index: 2; background: var(--green-500); color: #fff; font-size: .66rem; font-weight: 700; letter-spacing: .08em; padding: 3px 10px; border-radius: 999px; text-transform: uppercase; }
+    /* chave que abraça o trimestral e o semestral */
+    .pl-regua .pl-chave { position: absolute; left: calc(50% + 10px); right: 16px; top: -19px; height: 12px; border: 1.5px solid var(--gold-light); border-bottom: 0; border-radius: 12px 12px 0 0; pointer-events: none; }
+    .pl-chave b { position: absolute; left: 50%; top: -13px; transform: translateX(-50%); background: var(--gold-light); color: #1d2018; font: 600 .74rem 'Poppins', sans-serif; padding: 3px 12px; border-radius: 999px; white-space: nowrap; }
+    .pl-chave svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; vertical-align: -2px; margin-right: 4px; }
 
     /* painel do plano escolhido + celular */
     .pl-palco { display: grid; grid-template-columns: 1.15fr .85fr; gap: 40px; align-items: center; max-width: 1060px; margin: 44px auto 0; }
@@ -105,7 +108,10 @@
     @media (max-width: 600px) {
       .pl { padding: 36px 0 60px; }
       .pl-regua { border-radius: 22px; }
-      .pl-regua button { padding: 12px 4px; font-size: .82rem; }
+      .pl-regua button { padding: 12px 1px; font-size: min(.82rem, 3.4vw); }
+      .pl-regua .pl-chave { left: calc(50% + 2px); right: 8px; }
+      .pl-chave b { font-size: min(.68rem, 2.9vw); padding: 3px 8px; }
+      .pl-chave svg { width: 11px; height: 11px; margin-right: 2px; }
       .pl-regua .pl-bola { border-radius: 18px; }
       .pl-painel { padding: 26px 22px; }
       .pl-botoes .btn { width: 100%; justify-content: center; }
@@ -148,7 +154,7 @@
 
         <div class="pl-regua" role="tablist" aria-label="Escolha o tempo do plano">
           <span class="pl-bola" id="plBola"></span>
-          <span class="pl-app-tag">com app</span>
+          <span class="pl-chave"><b><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg>Com o app 10 em 10</b></span>
           <button role="tab" data-p="0">Avulsa<small>1 consulta</small></button>
           <button role="tab" data-p="1">Mensal<small>1 mês</small></button>
           <button role="tab" data-p="2">Trimestral<small>3 meses</small></button>
